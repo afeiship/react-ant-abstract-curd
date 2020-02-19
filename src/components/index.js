@@ -6,7 +6,7 @@ import noop from '@feizheng/noop';
 import objectAssign from 'object-assign';
 import ReactAntConfirm from '@feizheng/react-ant-confirm';
 
-import { Table, Icon, Button } from 'antd';
+import { Card, Table, Icon, Button } from 'antd';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -45,7 +45,6 @@ export default class ReactAntAbstractCurd extends Component {
   };
 
   get fields() {
-    console.log('parent fields');
     return [];
   }
 
