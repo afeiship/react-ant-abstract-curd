@@ -70,7 +70,7 @@ export default class ReactAntAbstractCurd extends Component {
   get extraView() {
     return (
       <div className="is-extra">
-        <Button size={'small'} onClick={this.add} icon={'plus'} {...props}>
+        <Button size={'small'} onClick={this.add} icon={'plus'}>
           新增
         </Button>
       </div>
@@ -121,17 +121,15 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   add = () => {
-    routeService.push(`/modules/${this.resource}/add`);
+    this.routeService.push(`/modules/${this.resource}/add`);
   };
 
   edit = (inItem) => {
-    const { routeService } = this.props;
-    routeService.push(`/modules/${this.resource}/edit/${this.currentId}`);
+    this.routeService.push(`/modules/${this.resource}/edit/${this.currentId}`);
   };
 
   del = (inItem) => {
-    const { apiService } = this.props;
-    apiService[`${this.resource}_destroy`](this.currentRow).then(() => {
+    this.apiService[`${this.resource}_destroy`](this.currentRow).then(() => {
       this.refresh();
     });
   };
