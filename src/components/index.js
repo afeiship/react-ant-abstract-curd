@@ -17,24 +17,17 @@ export default class ReactAntAbstractCurd extends Component {
     /**
      * The extended className for component.
      */
-    className: PropTypes.string,
-    /**
-     * The router route service.
-     */
-    routeService: PropTypes.any,
-    /**
-     * The api service.
-     */
-    apiService: PropTypes.any
+    className: PropTypes.string
   };
 
   static defaultProps = {};
 
-  resource = 'users';
+  resources = 'users';
   rowKey = 'id';
   size = 'small';
   bordered = true;
   pageSize = 10;
+  current = {};
   pagination = {
     // current page number
     page: 'page',
@@ -43,6 +36,10 @@ export default class ReactAntAbstractCurd extends Component {
     // total count
     total: 'total'
   };
+
+  get id() {
+    return nx.get(this.current, `item.${this.rowKey}`);
+  }
 
   get fields() {
     return [];
@@ -74,6 +71,34 @@ export default class ReactAntAbstractCurd extends Component {
           新增
         </Button>
       </div>
+    );
+  }
+
+  get tableView() {
+    const { columns, data, total, loading } = this.state;
+    const { page } = this.pagination;
+    return (
+      <Table
+        loading={loading}
+        size={this.size}
+        bordered={this.bordered}
+        columns={columns}
+        dataSource={data}
+        onChange={this.handleTableChange}
+        rowKey={this.rowKey}
+        onRow={(record, index) => {
+          return {
+            onMouseEnter: () => {
+              this.current = { index, item: record };
+            }
+          };
+        }}
+        pagination={{
+          showSizeChanger: true,
+          total: total,
+          current: this.state[page]
+        }}
+      />
     );
   }
 
@@ -121,28 +146,29 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   add = () => {
-    this.routeService.push(`/modules/${this.resource}/add`);
+    this.routeService.push(`/modules/${this.resources}/add`);
   };
 
-  edit = (inItem) => {
-    this.routeService.push(`/modules/${this.resource}/edit/${this.currentId}`);
+  edit = () => {
+    this.routeService.push(`/modules/${this.resources}/edit/${this.id}`);
   };
 
-  del = (inItem) => {
-    this.apiService[`${this.resource}_destroy`](this.currentRow).then(() => {
+  del = () => {
+    this.apiService[`${this.resources}_destroy`](this.current.item).then(() => {
       this.refresh();
     });
   };
 
   refresh() {
-    this.load({ page: this.current, size: this.pageSize });
+    const { page, size } = this.pagination;
+    this.load({ [page]: this.current, [size]: this.pageSize });
   }
 
   load(inData) {
     const { size } = this.pagination;
     const data = nx.mix({ [size]: this.pageSize }, inData);
     this.setState({ loading: true });
-    this.apiService[`${this.resource}_index`](data).then((response) => {
+    this.apiService[`${this.resources}_index`](data).then((response) => {
       const { rows, total } = this.setResponse(response);
       this.setState({ data: rows, total, loading: false });
     });
@@ -157,27 +183,6 @@ export default class ReactAntAbstractCurd extends Component {
       this.load(target);
     });
   };
-
-  tableView() {
-    const { columns, data, total, loading } = this.state;
-    const { page } = this.pagination;
-    return (
-      <Table
-        loading={loading}
-        size={this.size}
-        bordered={this.bordered}
-        columns={columns}
-        dataSource={data}
-        onChange={this.handleTableChange}
-        rowKey={this.rowKey}
-        pagination={{
-          showSizeChanger: true,
-          total: total,
-          current: this.state[page]
-        }}
-      />
-    );
-  }
 
   render() {
     throw new Error('Render method must be implement!');

@@ -16,6 +16,13 @@ class ApiService {
     var url = nx.param(inData, '/api/users/afeiship/repos');
     return fetch(url).then((res) => res.json());
   }
+
+  static repos_destroy(inData) {
+    return new Promise((resolve) => {
+      console.log('call destroy api', inData);
+      resolve();
+    });
+  }
 }
 
 class RouteService {
@@ -25,7 +32,7 @@ class RouteService {
 }
 
 class Index extends ReactAntAbstractCurd {
-  resource = 'repos';
+  resources = 'repos';
 
   get fields() {
     return [
@@ -57,7 +64,7 @@ class Index extends ReactAntAbstractCurd {
   }
 
   render() {
-    return <div className="app-container">{this.tableView()}</div>;
+    return <div className="app-container">{this.tableView}</div>;
   }
 }
 

@@ -11,6 +11,15 @@ body,
 
 @import "@/components/style.scss";
 
+.mr5_ > * {
+  margin-right: 5px;
+}
+.mr__ > * {
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
 .app-container {
   padding: 50px;
   box-sizing: border-box;

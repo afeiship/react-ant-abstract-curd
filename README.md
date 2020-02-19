@@ -12,11 +12,9 @@ npm update @feizheng/react-ant-abstract-curd
 ```
 
 ## properties
-| Name         | Type   | Default | Description                           |
-| ------------ | ------ | ------- | ------------------------------------- |
-| className    | string | -       | The extended className for component. |
-| routeService | any    | -       | The router route service.             |
-| apiService   | any    | -       | The api service.                      |
+| Name      | Type   | Default | Description                           |
+| --------- | ------ | ------- | ------------------------------------- |
+| className | string | -       | The extended className for component. |
 
 
 ## usage
@@ -47,6 +45,13 @@ npm update @feizheng/react-ant-abstract-curd
       var url = nx.param(inData, '/api/users/afeiship/repos');
       return fetch(url).then((res) => res.json());
     }
+
+    static repos_destroy(inData) {
+      return new Promise((resolve) => {
+        console.log('call destroy api', inData);
+        resolve();
+      });
+    }
   }
 
   class RouteService {
@@ -56,7 +61,7 @@ npm update @feizheng/react-ant-abstract-curd
   }
 
   class Index extends ReactAntAbstractCurd {
-    resource = 'repos';
+    resources = 'repos';
 
     get fields() {
       return [
@@ -88,7 +93,7 @@ npm update @feizheng/react-ant-abstract-curd
     }
 
     render() {
-      return <div className="app-container">{this.tableView()}</div>;
+      return <div className="app-container">{this.tableView}</div>;
     }
   }
 
