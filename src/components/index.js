@@ -34,8 +34,18 @@ export default class ReactAntAbstractCurd extends Component {
   rowKey = 'id';
   size = 'small';
   bordered = true;
+  pageSize = 10;
+  pagination = {
+    // current page number
+    page: 'page',
+    // per page size
+    size: 'size',
+    // total count
+    total: 'total'
+  };
 
   get fields() {
+    console.log('parent fields');
     return [];
   }
 
@@ -43,14 +53,12 @@ export default class ReactAntAbstractCurd extends Component {
     return {
       title: '操作',
       width: 80,
-      render: (record) => {
+      render: () => {
         return (
-          <div className={'mr5_ mr__ is-actions'}>
-            <a href={'javascript:;'} onClick={this.edit}>
-              编辑
-            </a>
-            <FsmConfirm onClick={this.del}>删除</FsmConfirm>
-          </div>
+          <span className={'mr5_ mr__ is-actions'}>
+            <a onClick={this.edit}>编辑</a>
+            <ReactAntConfirm onClick={this.del}>删除</ReactAntConfirm>
+          </span>
         );
       }
     };
@@ -70,30 +78,47 @@ export default class ReactAntAbstractCurd extends Component {
     );
   }
 
-  set pageSize(inValue) {
-    nx.$local = {
-      [`${this.resource}.page`]: inValue
-    };
-  }
-
-  get pageSize() {
-    return nx.get(nx.$local, `${this.resource}.page`, 10);
-  }
-
   constructor(inProps) {
     super(inProps);
+    this.setPagination();
+    this.serviceInject();
+    const { page, size, total } = this.pagination;
     this.state = {
+      loading: false,
       columns: this.columns,
       data: [],
-      page: 1,
-      total: 0
+      [page]: 1,
+      [size]: this.pageSize,
+      [total]: 0
     };
+  }
+
+  /**
+   * @template
+   * Set pagination mapping.
+   */
+  setPagination() {}
+
+  /**
+   * @template
+   * Set wrap response.
+   */
+  setResponse(inResponse) {
+    return inResponse;
+  }
+
+  /**
+   * @template
+   * Service inject.
+   */
+  serviceInject() {
+    this.apiService = null;
+    this.routeService = null;
   }
 
   componentDidMount() {
-    this.load(this.request);
-    this.setCurrentResource();
-    this.attachRefresh();
+    const { page } = this.pagination;
+    this.load({ [page]: this.state[page] });
   }
 
   add = () => {
@@ -117,25 +142,31 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   load(inData) {
-    const { apiService } = this.props;
-    apiService[`${this.resource}_index`](inData).then((response) => {
-      const { rows, total } = response;
-      this.setState({ data: rows, total });
+    const { size } = this.pagination;
+    const data = nx.mix({ [size]: this.pageSize }, inData);
+    this.setState({ loading: true });
+    this.apiService[`${this.resource}_index`](data).then((response) => {
+      const { rows, total } = this.setResponse(response);
+      this.setState({ data: rows, total, loading: false });
     });
   }
 
-  onTableChange = (inPagination) => {
-    const { current, pageSize } = inPagination;
-    this.pageSize = pageSize;
-    this.setState({ page: current }, () => {
-      this.load({ page: current, size: pageSize });
+  handleTableChange = (inPagination) => {
+    const { current } = inPagination;
+    const { page } = this.pagination;
+    const target = { [page]: current };
+
+    this.setState(target, () => {
+      this.load(target);
     });
   };
 
   tableView() {
-    const { columns, data, total } = this.state;
+    const { columns, data, total, loading } = this.state;
+    const { page } = this.pagination;
     return (
       <Table
+        loading={loading}
         size={this.size}
         bordered={this.bordered}
         columns={columns}
@@ -144,9 +175,8 @@ export default class ReactAntAbstractCurd extends Component {
         rowKey={this.rowKey}
         pagination={{
           showSizeChanger: true,
-          pageSize: this.pageSize,
           total: total,
-          current: this.currentPage
+          current: this.state[page]
         }}
       />
     );
