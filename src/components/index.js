@@ -112,7 +112,6 @@ export default class ReactAntAbstractCurd extends Component {
       columns: this.columns,
       data: [],
       [page]: 1,
-      [size]: this.pageSize,
       [total]: 0
     };
   }
@@ -161,7 +160,7 @@ export default class ReactAntAbstractCurd extends Component {
 
   refresh() {
     const { page, size } = this.pagination;
-    this.load({ [page]: this.current, [size]: this.pageSize });
+    this.load({ [page]: this.state[page], [size]: this.pageSize });
   }
 
   load(inData) {
