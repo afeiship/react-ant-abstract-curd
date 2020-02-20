@@ -149,7 +149,7 @@ export default class ReactAntAbstractCurd extends Component {
   };
 
   edit = () => {
-    this.routeService.push(`/modules/${this.resources}/edit/?id=${this.id}`);
+    this.routeService.push(`/modules/${this.resources}/edit?id=${this.id}`);
   };
 
   del = () => {
