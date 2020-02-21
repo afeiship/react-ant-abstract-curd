@@ -74,34 +74,6 @@ export default class ReactAntAbstractCurd extends Component {
     );
   }
 
-  get tableView() {
-    const { columns, data, total, loading } = this.state;
-    const { page } = this.pagination;
-    return (
-      <Table
-        loading={loading}
-        size={this.size}
-        bordered={this.bordered}
-        columns={columns}
-        dataSource={data}
-        onChange={this.handleTableChange}
-        rowKey={this.rowKey}
-        onRow={(record, index) => {
-          return {
-            onMouseEnter: () => {
-              this.current = { index, item: record };
-            }
-          };
-        }}
-        pagination={{
-          showSizeChanger: true,
-          total: total,
-          current: this.state[page]
-        }}
-      />
-    );
-  }
-
   constructor(inProps) {
     super(inProps);
     this.setPagination();
@@ -160,7 +132,10 @@ export default class ReactAntAbstractCurd extends Component {
 
   refresh() {
     const { page, size } = this.pagination;
-    this.load({ [page]: this.state[page], [size]: this.pageSize });
+    this.load({
+      [page]: this.state[page],
+      [size]: this.pageSize
+    });
   }
 
   load(inData) {
@@ -171,6 +146,36 @@ export default class ReactAntAbstractCurd extends Component {
       const { rows, total } = this.setResponse(response);
       this.setState({ data: rows, total, loading: false });
     });
+  }
+
+  table(inProps) {
+    const props = inProps || {};
+    const { columns, data, total, loading } = this.state;
+    const { page } = this.pagination;
+    return (
+      <Table
+        loading={loading}
+        size={this.size}
+        bordered={this.bordered}
+        columns={columns}
+        dataSource={data}
+        onChange={this.handleTableChange}
+        rowKey={this.rowKey}
+        onRow={(record, index) => {
+          return {
+            onMouseEnter: () => {
+              this.current = { index, item: record };
+            }
+          };
+        }}
+        pagination={{
+          showSizeChanger: true,
+          total: total,
+          current: this.state[page]
+        }}
+        {...props}
+      />
+    );
   }
 
   handleTableChange = (inPagination) => {

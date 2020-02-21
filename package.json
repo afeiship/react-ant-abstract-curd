@@ -1,6 +1,6 @@
 {
   "name": "@feizheng/react-ant-abstract-curd",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Antd abstract curd.",
   "main": "dist/index.js",
   "scripts": {

@@ -93,7 +93,7 @@ npm update @feizheng/react-ant-abstract-curd
     }
 
     render() {
-      return <div className="app-container">{this.tableView}</div>;
+      return <div className="app-container">{this.table()}</div>;
     }
   }
 
