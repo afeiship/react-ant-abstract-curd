@@ -32,7 +32,14 @@ class RouteService {
 }
 
 class Index extends ReactAntAbstractCurd {
+  apiService = ApiService;
+  routeService = RouteService;
   resources = 'repos';
+  pagination = {
+    page: 'page',
+    size: 'per_page',
+    total: 'total'
+  };
 
   get fields() {
     return [
@@ -43,24 +50,11 @@ class Index extends ReactAntAbstractCurd {
     ];
   }
 
-  setPagination() {
-    this.pagination = {
-      page: 'page',
-      size: 'per_page',
-      total: 'total'
-    };
-  }
-
   setResponse(res) {
     return {
       rows: res,
       total: 1000
     };
-  }
-
-  serviceInject() {
-    this.routeService = RouteService;
-    this.apiService = ApiService;
   }
 
   render() {

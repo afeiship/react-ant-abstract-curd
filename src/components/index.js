@@ -95,23 +95,12 @@ export default class ReactAntAbstractCurd extends Component {
 
   constructor(inProps) {
     super(inProps);
-    this.setPagination();
-    this.serviceInject();
-    const { page, size, total } = this.pagination;
     this.state = {
       loading: false,
       columns: this.columns,
-      data: [],
-      [page]: this.page,
-      [total]: 0
+      data: []
     };
   }
-
-  /**
-   * @template
-   * Set pagination mapping.
-   */
-  setPagination() {}
 
   /**
    * @template
@@ -121,17 +110,18 @@ export default class ReactAntAbstractCurd extends Component {
     return inResponse;
   }
 
-  /**
-   * @template
-   * Service inject.
-   */
-  serviceInject() {
-    this.apiService = null;
-    this.routeService = null;
+  initCache() {
+    const { page, size, total } = this.pagination;
+    this.state = Object.assign(this.state, {
+      [page]: this.page,
+      [size]: this.pageSize,
+      [total]: 0
+    });
   }
 
   componentDidMount() {
     const { page } = this.pagination;
+    this.initCache();
     this.load({ [page]: this.state[page] });
   }
 

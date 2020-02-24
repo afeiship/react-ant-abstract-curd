@@ -61,7 +61,14 @@ npm update @feizheng/react-ant-abstract-curd
   }
 
   class Index extends ReactAntAbstractCurd {
+    apiService = ApiService;
+    routeService = RouteService;
     resources = 'repos';
+    pagination = {
+      page: 'page',
+      size: 'per_page',
+      total: 'total'
+    };
 
     get fields() {
       return [
@@ -72,24 +79,11 @@ npm update @feizheng/react-ant-abstract-curd
       ];
     }
 
-    setPagination() {
-      this.pagination = {
-        page: 'page',
-        size: 'per_page',
-        total: 'total'
-      };
-    }
-
     setResponse(res) {
       return {
         rows: res,
         total: 1000
       };
-    }
-
-    serviceInject() {
-      this.routeService = RouteService;
-      this.apiService = ApiService;
     }
 
     render() {
