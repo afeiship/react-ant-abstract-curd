@@ -192,8 +192,8 @@ export default class ReactAntAbstractCurd extends Component {
 
   handleTableChange = (inPagination) => {
     const { current, pageSize } = inPagination;
-    const { page } = this.pagination;
-    const target = { [page]: current };
+    const { page, size } = this.pagination;
+    const target = { [page]: current, [size]: pageSize };
 
     // cache page/size to local
     this.page = current;
