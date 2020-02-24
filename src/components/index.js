@@ -162,7 +162,7 @@ export default class ReactAntAbstractCurd extends Component {
   table(inProps) {
     const props = inProps || {};
     const { columns, data, total, loading } = this.state;
-    const { page } = this.pagination;
+    const { page, size } = this.pagination;
     return (
       <Table
         loading={loading}
@@ -182,6 +182,7 @@ export default class ReactAntAbstractCurd extends Component {
         pagination={{
           showSizeChanger: true,
           total: total,
+          pageSize: this.state[size],
           current: this.state[page]
         }}
         {...props}
