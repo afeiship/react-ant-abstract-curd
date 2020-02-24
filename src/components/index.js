@@ -26,7 +26,6 @@ export default class ReactAntAbstractCurd extends Component {
   rowKey = 'id';
   size = 'small';
   bordered = true;
-  pageSize = 10;
   current = {};
   pagination = {
     // current page number
@@ -36,6 +35,26 @@ export default class ReactAntAbstractCurd extends Component {
     // total count
     total: 'total'
   };
+
+  get page() {
+    const cache = nx.get(nx.$local, `${this.resources}.page`);
+    return this._page || cache || 1;
+  }
+
+  set page(inValue) {
+    this._page = inValue;
+    nx.$local = { [`${this.resources}.page`]: inValue };
+  }
+
+  get pageSize() {
+    const cache = nx.get(nx.$local, `${this.resources}.pageSize`);
+    return this._pageSize || cache || 10;
+  }
+
+  set pageSize(inValue) {
+    this._pageSize = inValue;
+    nx.$local = { [`${this.resources}.pageSize`]: inValue };
+  }
 
   get id() {
     return nx.get(this.current, `item.${this.rowKey}`);
@@ -83,7 +102,7 @@ export default class ReactAntAbstractCurd extends Component {
       loading: false,
       columns: this.columns,
       data: [],
-      [page]: 1,
+      [page]: this.page,
       [total]: 0
     };
   }
@@ -179,10 +198,13 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   handleTableChange = (inPagination) => {
-    const { current } = inPagination;
+    const { current, pageSize } = inPagination;
     const { page } = this.pagination;
     const target = { [page]: current };
 
+    // cache page/size to local
+    this.page = current;
+    this.pageSize = pageSize;
     this.setState(target, () => {
       this.load(target);
     });
