@@ -111,3 +111,4 @@ npm update @feizheng/react-ant-abstract-curd
 
 ## documentation
 - https://afeiship.github.io/react-ant-abstract-curd/
+- https://es6.ruanyifeng.com/#docs/class-extends
