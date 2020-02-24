@@ -21,7 +21,6 @@ export default class ReactAntAbstractCurd extends Component {
   };
 
   static defaultProps = {};
-
   resources = 'users';
   rowKey = 'id';
   size = 'small';
@@ -37,23 +36,26 @@ export default class ReactAntAbstractCurd extends Component {
   };
 
   get page() {
-    const cache = nx.get(nx.$local, `pagination.${this.resources}.page`);
+    const cache = nx.get(nx.$local, `curd__pagination.${this.resources}.page`);
     return this._page || cache || 1;
   }
 
   set page(inValue) {
     this._page = inValue;
-    nx.$local = { [`pagination.${this.resources}.page`]: inValue };
+    nx.$local = { [`curd__pagination.${this.resources}.page`]: inValue };
   }
 
   get pageSize() {
-    const cache = nx.get(nx.$local, `pagination.${this.resources}.pageSize`);
+    const cache = nx.get(
+      nx.$local,
+      `curd__pagination.${this.resources}.pageSize`
+    );
     return this._pageSize || cache || 10;
   }
 
   set pageSize(inValue) {
     this._pageSize = inValue;
-    nx.$local = { [`pagination.${this.resources}.pageSize`]: inValue };
+    nx.$local = { [`curd__pagination.${this.resources}.pageSize`]: inValue };
   }
 
   get id() {
