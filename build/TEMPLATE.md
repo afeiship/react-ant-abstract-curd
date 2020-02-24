@@ -29,3 +29,4 @@ __GENERATE_DAPP__
 
 ## documentation
 - https://afeiship.github.io/react-ant-abstract-curd/
+- https://es6.ruanyifeng.com/#docs/class-extends
