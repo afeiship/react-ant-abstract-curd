@@ -149,11 +149,12 @@ export default class ReactAntAbstractCurd extends Component {
     });
   }
 
-  load(inData) {
+  load(inData, inAction) {
+    const action = inAction || 'index';
     const { size } = this.pagination;
     const data = nx.mix({ [size]: this.pageSize }, inData);
     this.setState({ loading: true });
-    this.apiService[`${this.resources}_index`](data).then((response) => {
+    this.apiService[`${this.resources}_${action}`](data).then((response) => {
       const { rows, total } = this.setResponse(response);
       this.setState({ data: rows, total, loading: false });
     });
