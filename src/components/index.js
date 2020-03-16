@@ -123,8 +123,23 @@ export default class ReactAntAbstractCurd extends Component {
 
   componentDidMount() {
     const { page } = this.pagination;
+    this.attachEvents();
     this.initCache();
     this.load({ [page]: this.state[page] });
+  }
+
+  componentWillUnmount() {
+    this.detachEvents();
+  }
+
+  attachEvents() {
+    this.refreshEvent = nx.$app.on(`${this.resources}.index.refresh`, () => {
+      this.refresh();
+    });
+  }
+
+  detachEvents() {
+    this.refreshEvent && this.refreshEvent.destroy();
   }
 
   add = () => {
