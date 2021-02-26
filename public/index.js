@@ -9,7 +9,7 @@ import '@jswork/next-ant-column';
 
 class ApiService {
   static repos_index(inData) {
-    var url = nx.param(inData, '/api/users/afeiship/repos');
+    var url = nx.param(inData, 'https://jsonplaceholder.typicode.com/posts');
     return fetch(url).then((res) => res.json());
   }
 
@@ -40,16 +40,16 @@ class Index extends ReactAntAbstractCurd {
   get fields() {
     return [
       nx.antColumn('ID', 'id'),
-      nx.antColumn('ProjectName', 'full_name'),
-      nx.antColumn('IsPivate', 'private', (text) => String(text)),
-      nx.antColumn('Owner', 'owner.login')
+      nx.antColumn('title', 'title'),
+      nx.antColumn('body', 'body', (text) => String(text)),
+      nx.antColumn('uid', 'userId')
     ];
   }
 
   setResponse(res) {
     return {
       rows: res,
-      total: 1000
+      total: 100
     };
   }
 

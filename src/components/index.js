@@ -92,10 +92,12 @@ export default class ReactAntAbstractCurd extends Component {
 
   constructor(inProps) {
     super(inProps);
+    const { total } = this.pagination;
     this.state = {
       loading: false,
       columns: this.columns,
-      data: []
+      data: [],
+      [total]: 0
     };
   }
 
@@ -174,6 +176,9 @@ export default class ReactAntAbstractCurd extends Component {
     const props = inProps || {};
     const { columns, data, total, loading } = this.state;
     const { page, size } = this.pagination;
+
+    if (!data.length) return null;
+
     return (
       <Table
         loading={loading}
