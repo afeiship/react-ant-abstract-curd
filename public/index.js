@@ -1,15 +1,11 @@
-import ReactAntAbstractCurd from '../src/main';
-import ReactDOM from 'react-dom';
 import React from 'react';
-import {
-  ReduxAppBase,
-  ReduxBoot,
-  reduxRender
-} from '@feizheng/next-react-redux';
-
-import '@feizheng/next-param';
-import '@feizheng/next-ant-column';
+import ReactDemokit from '@jswork/react-demokit';
+import { ReduxAppBase, reduxRender } from '@jswork/next-react-redux';
+import ReactAntAbstractCurd from '../src/main';
 import './assets/style.scss';
+
+import '@jswork/next-param';
+import '@jswork/next-ant-column';
 
 class ApiService {
   static repos_index(inData) {
@@ -74,6 +70,12 @@ export default class extends ReduxAppBase {
   }
 
   render() {
-    return <Index />;
+    return (
+      <ReactDemokit
+        className="p-3 app-container"
+        url="https://github.com/afeiship/react-ant-abstract-curd">
+        <Index />
+      </ReactDemokit>
+    );
   }
 }

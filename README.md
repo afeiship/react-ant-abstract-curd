@@ -1,44 +1,43 @@
 # react-ant-abstract-curd
 > Antd abstract curd.
 
+[![version][version-image]][version-url]
+[![license][license-image]][license-url]
+[![size][size-image]][size-url]
+[![download][download-image]][download-url]
+
 ## installation
 ```shell
-npm install -S @feizheng/react-ant-abstract-curd
-```
-
-## update
-```shell
-npm update @feizheng/react-ant-abstract-curd
+npm install -S @jswork/react-ant-abstract-curd
 ```
 
 ## properties
-| Name      | Type   | Default | Description                           |
-| --------- | ------ | ------- | ------------------------------------- |
-| className | string | -       | The extended className for component. |
+| Name      | Type   | Required | Default | Description                           |
+| --------- | ------ | -------- | ------- | ------------------------------------- |
+| className | string | false    | -       | The extended className for component. |
 
 
 ## usage
 1. import css
   ```scss
-  @import "~@feizheng/react-ant-abstract-curd/dist/style.scss";
+  @import "~@jswork/react-ant-abstract-curd/dist/style.css";
+
+  // or use sass
+  @import "~@jswork/react-ant-abstract-curd/dist/style.scss";
 
   // customize your styles:
   $react-ant-abstract-curd-options: ()
   ```
 2. import js
   ```js
-  import ReactAntAbstractCurd from '@feizheng/react-ant-abstract-curd';
-  import ReactDOM from 'react-dom';
   import React from 'react';
-  import {
-    ReduxAppBase,
-    ReduxBoot,
-    reduxRender
-  } from '@feizheng/next-react-redux';
-
-  import '@feizheng/next-param';
-  import '@feizheng/next-ant-column';
+  import ReactDemokit from '@jswork/react-demokit';
+  import { ReduxAppBase, reduxRender } from '@jswork/next-react-redux';
+  import ReactAntAbstractCurd from '@jswork/react-ant-abstract-curd';
   import './assets/style.scss';
+
+  import '@jswork/next-param';
+  import '@jswork/next-ant-column';
 
   class ApiService {
     static repos_index(inData) {
@@ -103,7 +102,13 @@ npm update @feizheng/react-ant-abstract-curd
     }
 
     render() {
-      return <Index />;
+      return (
+        <ReactDemokit
+          className="p-3 app-container"
+          url="https://github.com/afeiship/react-ant-abstract-curd">
+          <Index />
+        </ReactDemokit>
+      );
     }
   }
 
@@ -111,4 +116,19 @@ npm update @feizheng/react-ant-abstract-curd
 
 ## documentation
 - https://afeiship.github.io/react-ant-abstract-curd/
-- https://es6.ruanyifeng.com/#docs/class-extends
+
+
+## license
+Code released under [the MIT license](https://github.com/afeiship/react-ant-abstract-curd/blob/master/LICENSE.txt).
+
+[version-image]: https://img.shields.io/npm/v/@jswork/react-ant-abstract-curd
+[version-url]: https://npmjs.org/package/@jswork/react-ant-abstract-curd
+
+[license-image]: https://img.shields.io/npm/l/@jswork/react-ant-abstract-curd
+[license-url]: https://github.com/afeiship/react-ant-abstract-curd/blob/master/LICENSE.txt
+
+[size-image]: https://img.shields.io/bundlephobia/minzip/@jswork/react-ant-abstract-curd
+[size-url]: https://github.com/afeiship/react-ant-abstract-curd/blob/master/dist/react-ant-abstract-curd.min.js
+
+[download-image]: https://img.shields.io/npm/dm/@jswork/react-ant-abstract-curd
+[download-url]: https://www.npmjs.com/package/@jswork/react-ant-abstract-curd

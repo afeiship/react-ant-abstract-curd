@@ -1,24 +1,10 @@
 $react-ant-abstract-curd-options: () !default;
 
 .react-ant-abstract-curd {
-  color: #000;
-  border: 4px dashed #ccc;
-  padding: 20px;
-  user-select: none;
-  &:hover {
-    border-color: #ddd;
-    background: #f3f3f3;
-  }
-
-  p {
-    margin-bottom: 10px;
-  }
-
-  .icon-play {
-    padding: 10px;
-    min-width: 120px;
-    &:focus {
-      outline: none;
-    }
+  // your styles
+  color: red;
+  font-size: 12px;
+  &:active {
+    color: black;
   }
 }

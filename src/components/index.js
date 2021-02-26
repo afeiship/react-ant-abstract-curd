@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import noop from '@feizheng/noop';
-import objectAssign from 'object-assign';
-import ReactAntConfirm from '@feizheng/react-ant-confirm';
-
-import { Card, Table, Icon, Button } from 'antd';
+import ReactAntConfirm from '@jswork/react-ant-confirm';
+import { Table, Button } from 'antd';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
