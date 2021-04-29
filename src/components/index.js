@@ -69,7 +69,7 @@ export default class ReactAntAbstractCurd extends Component {
       width: 80,
       render: () => {
         return (
-          <span className={'mr5_ mr__ is-actions'}>
+          <span className={'mr-5_ mr_ is-actions'}>
             <a onClick={this.edit}>编辑</a>
             <ReactAntConfirm onClick={this.del}>删除</ReactAntConfirm>
           </span>
