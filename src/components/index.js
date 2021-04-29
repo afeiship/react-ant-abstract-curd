@@ -22,6 +22,7 @@ export default class ReactAntAbstractCurd extends Component {
   bordered = true;
   current = {};
   options = {};
+  modules = '/modules';
   pagination = {
     // current page number
     page: 'page',
@@ -141,11 +142,11 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   add = () => {
-    this.routeService.push(`/modules/${this.resources}/add`);
+    this.routeService.push(`${this.modules}/${this.resources}/add`);
   };
 
   edit = () => {
-    this.routeService.push(`/modules/${this.resources}/edit/${this.id}`);
+    this.routeService.push(`${this.modules}/${this.resources}/edit/${this.id}`);
   };
 
   del = () => {
