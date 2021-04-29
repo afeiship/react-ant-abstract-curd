@@ -21,6 +21,7 @@ export default class ReactAntAbstractCurd extends Component {
   size = 'small';
   bordered = true;
   current = {};
+  options = {};
   pagination = {
     // current page number
     page: 'page',
@@ -164,7 +165,7 @@ export default class ReactAntAbstractCurd extends Component {
   load(inData, inAction) {
     const action = inAction || 'index';
     const { size } = this.pagination;
-    const data = nx.mix({ [size]: this.pageSize }, inData);
+    const data = nx.mix({ [size]: this.pageSize }, inData, this.options);
     this.setState({ loading: true });
     this.apiService[`${this.resources}_${action}`](data).then((response) => {
       const { rows, total } = this.setResponse(response);
