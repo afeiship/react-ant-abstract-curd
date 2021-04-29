@@ -21,6 +21,7 @@ __GENERATE_DOCS__
 
   // or use sass
   @import "~@jswork/react-ant-abstract-curd/dist/style.scss";
+  @import "~@jswork/react-empty-state/dist/style.scss";
 
   // customize your styles:
   $react-ant-abstract-curd-options: ()

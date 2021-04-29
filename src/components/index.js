@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
-import { Table, Button } from 'antd';
+import { Table, Button, Card } from 'antd';
+import ReactEmptyState from '@jswork/react-empty-state';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -22,7 +23,7 @@ export default class ReactAntAbstractCurd extends Component {
   bordered = true;
   current = {};
   options = {};
-  modules = '/modules';
+  module = 'modules';
   pagination = {
     // current page number
     page: 'page',
@@ -142,15 +143,16 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   add = () => {
-    this.routeService.push(`${this.modules}/${this.resources}/add`);
+    this.routeService.push(`/${this.module}/${this.resources}/add`);
   };
 
   edit = () => {
-    this.routeService.push(`${this.modules}/${this.resources}/edit/${this.id}`);
+    this.routeService.push(`/${this.module}/${this.resources}/edit/${this.id}`);
   };
 
   del = () => {
-    this.apiService[`${this.resources}_destroy`](this.current.item).then(() => {
+    const data = nx.mix(null, this.current.item, this.options);
+    this.apiService[`${this.resources}_destroy`](data).then(() => {
       this.refresh();
     });
   };
@@ -220,6 +222,17 @@ export default class ReactAntAbstractCurd extends Component {
       this.load(target);
     });
   };
+
+  empty() {
+    return <ReactEmptyState centered title="暂无数据" />;
+  }
+
+  view() {
+    const { data } = this.state;
+    return (
+      <Card title="列表">{data.length ? this.table() : this.empty()}</Card>
+    );
+  }
 
   render() {
     throw new Error('Render method must be implement!');
