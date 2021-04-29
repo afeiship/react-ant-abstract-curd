@@ -32,8 +32,10 @@ npm install -S @jswork/react-ant-abstract-curd
 2. import js
   ```js
   import React from 'react';
+  import { Card } from 'antd';
   import ReactDemokit from '@jswork/react-demokit';
   import { ReduxAppBase, reduxRender } from '@jswork/next-react-redux';
+  import ReactAdminIcons from '@jswork/react-admin-icons';
   import ReactAntAbstractCurd from '@jswork/react-ant-abstract-curd';
   import './assets/style.scss';
 
@@ -86,8 +88,21 @@ npm install -S @jswork/react-ant-abstract-curd
       };
     }
 
+    get titleView() {
+      return (
+        <span className="mr-5_ mr_">
+          <ReactAdminIcons value="date" />
+          <span>列表管理</span>
+        </span>
+      );
+    }
+
     render() {
-      return <div className="app-container">{this.table()}</div>;
+      return (
+        <Card title={this.titleView} className="m10" extra={this.extraView}>
+          {this.table()}
+        </Card>
+      );
     }
   }
 
