@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
 import { Table, Button, Card } from 'antd';
 import ReactEmptyState from '@jswork/react-empty-state';
+import ReactAdminIcons from '@jswork/react-admin-icons';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -86,8 +87,9 @@ export default class ReactAntAbstractCurd extends Component {
   get extraView() {
     return (
       <div className="is-extra">
-        <Button size={'small'} onClick={this.add} icon={'plus'}>
-          新增
+        <Button size={'small'} onClick={this.add} className="mr-5_ mr_">
+          <ReactAdminIcons value="addition" size={14} />
+          <span>新增</span>
         </Button>
       </div>
     );

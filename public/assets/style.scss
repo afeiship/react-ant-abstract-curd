@@ -3,11 +3,11 @@
 @import "~@jswork/react-sw-update-tips/dist/style.scss";
 @import "~@jswork/react-demokit/dist/style.scss";
 
-.mr5_ > * {
+.mr-5_ > * {
   margin-right: 5px;
 }
 
-.mr__ > * {
+.mr_ > * {
   &:last-child {
     margin-right: 0;
   }

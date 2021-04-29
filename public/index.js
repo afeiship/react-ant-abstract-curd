@@ -1,6 +1,8 @@
 import React from 'react';
+import { Card } from 'antd';
 import ReactDemokit from '@jswork/react-demokit';
 import { ReduxAppBase, reduxRender } from '@jswork/next-react-redux';
+import ReactAdminIcons from '@jswork/react-admin-icons';
 import ReactAntAbstractCurd from '../src/main';
 import './assets/style.scss';
 
@@ -53,8 +55,21 @@ class Index extends ReactAntAbstractCurd {
     };
   }
 
+  get titleView() {
+    return (
+      <span className="mr-5_ mr_">
+        <ReactAdminIcons value="date" />
+        <span>列表管理</span>
+      </span>
+    );
+  }
+
   render() {
-    return <div className="app-container">{this.table()}</div>;
+    return (
+      <Card title={this.titleView} className="m10" extra={this.extraView}>
+        {this.table()}
+      </Card>
+    );
   }
 }
 
