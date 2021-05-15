@@ -128,6 +128,9 @@ export default class ReactAntAbstractCurd extends Component {
     this.attachEvents();
     this.initCache();
     this.load({ [page]: this.state[page] });
+    setTimeout(() => {
+      nx.set(this.routeService, 'current', this.props);
+    }, 0);
   }
 
   componentWillUnmount() {
