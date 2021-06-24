@@ -37,7 +37,7 @@ export default class ReactAntAbstractCurd extends Component {
 
   get page() {
     const cache = nx.get(
-      nx[`$${this.enginType}`],
+      nx[`$${this.engineType}`],
       `curd__pagination.${this.resources}.page`
     );
     return this._page || cache || 1;
@@ -45,14 +45,14 @@ export default class ReactAntAbstractCurd extends Component {
 
   set page(inValue) {
     this._page = inValue;
-    nx[`$${this.enginType}`] = {
+    nx[`$${this.engineType}`] = {
       [`curd__pagination.${this.resources}.page`]: inValue
     };
   }
 
   get pageSize() {
     const cache = nx.get(
-      nx[`$${this.enginType}`],
+      nx[`$${this.engineType}`],
       `curd__pagination.${this.resources}.pageSize`
     );
     return this._pageSize || cache || 10;
@@ -60,7 +60,7 @@ export default class ReactAntAbstractCurd extends Component {
 
   set pageSize(inValue) {
     this._pageSize = inValue;
-    nx[`$${this.enginType}`] = {
+    nx[`$${this.engineType}`] = {
       [`curd__pagination.${this.resources}.pageSize`]: inValue
     };
   }
