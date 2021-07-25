@@ -4,6 +4,8 @@ import ReactAntConfirm from '@jswork/react-ant-confirm';
 import { Table, Button, Card } from 'antd';
 import ReactEmptyState from '@jswork/react-empty-state';
 import ReactAdminIcons from '@jswork/react-admin-icons';
+import nxHashlize from '@jswork/next-hashlize';
+import deepEqual from 'deep-equal';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -24,7 +26,6 @@ export default class ReactAntAbstractCurd extends Component {
   size = 'small';
   bordered = true;
   current = {};
-  options = {};
   module = 'modules';
   pagination = {
     // current page number
@@ -34,6 +35,10 @@ export default class ReactAntAbstractCurd extends Component {
     // total count
     total: 'total'
   };
+
+  get options() {
+    return {};
+  }
 
   get page() {
     const cache = nx.get(
@@ -103,9 +108,17 @@ export default class ReactAntAbstractCurd extends Component {
     );
   }
 
+  get qs() {
+    const pathname = location.hash.slice(1);
+    if (!pathname) return {};
+    const [_, search] = pathname.split('?');
+    return nxHashlize(search);
+  }
+
   constructor(inProps) {
     super(inProps);
     const { total } = this.pagination;
+    this.lastQs = this.qs;
     this.state = {
       loading: false,
       columns: this.columns,
@@ -139,6 +152,14 @@ export default class ReactAntAbstractCurd extends Component {
     setTimeout(() => {
       nx.set(this.routeService, 'current', this.props);
     }, 0);
+  }
+
+  shouldComponentUpdate() {
+    if (!deepEqual(this.qs, this.lastQs)) {
+      this.lastQs = this.qs;
+      this.refresh();
+    }
+    return true;
   }
 
   componentWillUnmount() {
@@ -193,8 +214,6 @@ export default class ReactAntAbstractCurd extends Component {
     const props = inProps || {};
     const { columns, data, total, loading } = this.state;
     const { page, size } = this.pagination;
-
-    if (!data.length) return null;
 
     return (
       <Table

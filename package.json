@@ -87,11 +87,13 @@
     "prop-types": "^15.7.2"
   },
   "dependencies": {
+    "@jswork/next-hashlize": "^1.0.0",
     "@jswork/noop": "^1.0.0",
     "@jswork/react-admin-icons": "^1.0.0",
     "@jswork/react-ant-confirm": "^1.0.0",
     "@jswork/react-empty-state": "^1.0.0",
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "deep-equal": "^2.0.5"
   },
   "publishConfig": {
     "access": "public",
