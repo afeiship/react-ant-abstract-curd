@@ -176,6 +176,12 @@ export default class ReactAntAbstractCurd extends Component {
     this.refreshEvent && this.refreshEvent.destroy();
   }
 
+  route = (inModule, inAction) => {
+    const url = `/${this.module}/${this.resources}/${inModule}`;
+    const action = inAction ? 'replace' : 'push';
+    this.routeService[action](url);
+  };
+
   add = () => {
     this.routeService.push(`/${this.module}/${this.resources}/add`);
   };
