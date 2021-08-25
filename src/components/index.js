@@ -27,6 +27,7 @@ export default class ReactAntAbstractCurd extends Component {
   bordered = true;
   current = {};
   module = 'modules';
+  action = 'index';
   pagination = {
     // current page number
     page: 'page',
@@ -167,9 +168,12 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   attachEvents() {
-    this.refreshEvent = nx.$app.on(`${this.resources}.index.refresh`, () => {
-      this.refresh();
-    });
+    this.refreshEvent = nx.$app.on(
+      `${this.resources}.${this.action}.refresh`,
+      () => {
+        this.refresh();
+      }
+    );
   }
 
   detachEvents() {
@@ -206,7 +210,7 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   load(inData, inAction) {
-    const action = inAction || 'index';
+    const action = inAction || this.action || 'index';
     const { size } = this.pagination;
     const data = nx.mix({ [size]: this.pageSize }, inData, this.options);
     this.setState({ loading: true });
