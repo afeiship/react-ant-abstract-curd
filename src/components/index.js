@@ -126,6 +126,7 @@ export default class ReactAntAbstractCurd extends Component {
       data: [],
       [total]: 0
     };
+    this.init();
   }
 
   /**
@@ -135,6 +136,12 @@ export default class ReactAntAbstractCurd extends Component {
   setResponse(inResponse) {
     return inResponse;
   }
+
+  /**
+   * @template
+   * Set init after constructor.
+   */
+  init() {}
 
   initCache() {
     const { page, size, total } = this.pagination;
