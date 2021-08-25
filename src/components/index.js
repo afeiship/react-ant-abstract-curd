@@ -37,6 +37,14 @@ export default class ReactAntAbstractCurd extends Component {
     total: 'total'
   };
 
+  get params() {
+    return nx.get(this.props, 'match.params');
+  }
+
+  get qs() {
+    return nx.hashlize(location.hash);
+  }
+
   get options() {
     return {};
   }
