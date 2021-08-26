@@ -124,13 +124,21 @@ export default class ReactAntAbstractCurd extends Component {
     super(inProps);
     const { total } = this.pagination;
     this.lastQs = this.qs;
-    this.state = {
+    this.state = nx.mix(null, this.initialState(), {
       loading: false,
       columns: this.columns,
       data: [],
       [total]: 0
-    };
+    });
     this.init();
+  }
+
+  /**
+   * @template
+   *
+   */
+  initialState() {
+    return null;
   }
 
   /**
