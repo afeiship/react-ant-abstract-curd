@@ -82,7 +82,7 @@ export default class ReactAntAbstractCurd extends Component {
   get actions() {
     return {
       title: '操作',
-      width: 80,
+      width: 100,
       render: () => {
         return (
           <span className={'mr-5_ mr_ is-actions'}>
