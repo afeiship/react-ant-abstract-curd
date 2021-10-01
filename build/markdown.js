@@ -15,7 +15,7 @@ nx.declare({
       fs.copyFileSync('./build/TEMPLATE.md', './README.md');
     },
     replace: function () {
-      const docApp = fs.readFileSync('./public/src/app.tsx').toString();
+      const docApp = fs.readFileSync('./public/src/main.tsx').toString();
 
       nx.replaceInFile('README.md', [
         ['__GENERATE_DAPP__', indentString(docApp, 2)],
