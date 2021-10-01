@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
 import { Table, Button, Card } from 'antd';
 import ReactEmptyState from '@jswork/react-empty-state';
 import ReactAdminIcons from '@jswork/react-admin-icons';
+import nx from '@jswork/next';
 import nxHashlize from '@jswork/next-hashlize';
 import deepEqual from 'deep-equal';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
-export default class ReactAntAbstractCurd extends Component {
+export type ReactAntAbstractCurdProps = {
+  /**
+   * The extended className for component.
+   */
+  className?: string;
+};
+
+export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurdProps, any> {
   static displayName = CLASS_NAME;
   static version = '__VERSION__';
-  static propTypes = {
-    /**
-     * The extended className for component.
-     */
-    className: PropTypes.string
-  };
 
   static defaultProps = {};
+  protected apiService;
+  protected routeService;
+  protected eventService;
+  private lastQs;
+  private refreshEvent;
+  private _pageSize;
+  private _page;
+
   engineType = 'local';
   resources = 'users';
   rowKey = 'id';
   size = 'small';
   bordered = true;
-  current = {};
+  current = { item: null, index: -1 };
   module = 'modules';
   action = 'index';
   pagination = {
@@ -75,7 +84,7 @@ export default class ReactAntAbstractCurd extends Component {
     return nx.get(this.current, `item.${this.rowKey}`);
   }
 
-  get fields() {
+  get fields(): any[] {
     return [];
   }
 
@@ -100,9 +109,9 @@ export default class ReactAntAbstractCurd extends Component {
 
   get extraView() {
     return (
-      <div className="is-extra">
-        <Button size={'small'} onClick={this.add} className="mr-5_ mr_">
-          <ReactAdminIcons value="addition" size={14} />
+      <div className='is-extra'>
+        <Button size={'small'} onClick={this.add} className='mr-5_ mr_'>
+          <ReactAdminIcons value='addition' size={14} />
           <span>新增</span>
         </Button>
       </div>
@@ -153,7 +162,8 @@ export default class ReactAntAbstractCurd extends Component {
    * @template
    * Set init after constructor.
    */
-  init() {}
+  init() {
+  }
 
   initCache() {
     const { page, size, total } = this.pagination;
@@ -187,7 +197,7 @@ export default class ReactAntAbstractCurd extends Component {
   }
 
   attachEvents() {
-    this.refreshEvent = nx.$app.on(
+    this.refreshEvent = this.eventService.on(
       `${this.resources}.${this.action}.refresh`,
       () => {
         this.refresh();
@@ -228,7 +238,7 @@ export default class ReactAntAbstractCurd extends Component {
     });
   }
 
-  load(inData, inAction) {
+  load(inData, inAction?) {
     const action = inAction || this.action || 'index';
     const { size } = this.pagination;
     const data = nx.mix({ [size]: this.pageSize }, inData, this.options);
@@ -239,7 +249,7 @@ export default class ReactAntAbstractCurd extends Component {
     });
   }
 
-  table(inProps) {
+  table(inProps?) {
     const props = inProps || {};
     const { columns, data, total, loading } = this.state;
     const { page, size } = this.pagination;
@@ -253,7 +263,7 @@ export default class ReactAntAbstractCurd extends Component {
         dataSource={data}
         onChange={this.handleTableChange}
         rowKey={this.rowKey}
-        onRow={(record, index) => {
+        onRow={(record, index: number) => {
           return {
             onMouseEnter: () => {
               this.current = { index, item: record };
@@ -285,17 +295,18 @@ export default class ReactAntAbstractCurd extends Component {
   };
 
   empty() {
-    return <ReactEmptyState centered title="暂无数据" />;
+    return <ReactEmptyState centered title='暂无数据' />;
   }
 
   view() {
     const { data } = this.state;
     return (
-      <Card title="列表">{data.length ? this.table() : this.empty()}</Card>
+      <Card title='列表'>{data.length ? this.table() : this.empty()}</Card>
     );
   }
 
   render() {
     throw new Error('Render method must be implement!');
+    return null;
   }
 }

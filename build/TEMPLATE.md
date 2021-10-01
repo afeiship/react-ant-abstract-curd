@@ -11,9 +11,6 @@
 npm install -S @jswork/react-ant-abstract-curd
 ```
 
-## properties
-__GENERATE_DOCS__
-
 ## usage
 1. import css
   ```scss
@@ -21,7 +18,6 @@ __GENERATE_DOCS__
 
   // or use sass
   @import "~@jswork/react-ant-abstract-curd/dist/style.scss";
-  @import "~@jswork/react-empty-state/dist/style.scss";
 
   // customize your styles:
   $react-ant-abstract-curd-options: ()
@@ -31,9 +27,8 @@ __GENERATE_DOCS__
 __GENERATE_DAPP__
   ```
 
-## documentation
+## preview
 - https://afeiship.github.io/react-ant-abstract-curd/
-
 
 ## license
 Code released under [the MIT license](https://github.com/afeiship/react-ant-abstract-curd/blob/master/LICENSE.txt).

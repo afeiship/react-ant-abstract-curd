@@ -1,11 +1,10 @@
-import React from 'react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Card } from 'antd';
-import ReactDemokit from '@jswork/react-demokit';
-import { ReduxAppBase, reduxRender } from '@jswork/next-react-redux';
 import ReactAdminIcons from '@jswork/react-admin-icons';
-import ReactAntAbstractCurd from '../src/main';
-import './assets/style.scss';
-
+import ReactAntAbstractCurd from '../../src/main';
+import EventMitt from '@jswork/event-mitt';
+import nx from '@jswork/next';
 import '@jswork/next-param';
 import '@jswork/next-ant-column';
 
@@ -15,10 +14,10 @@ class ApiService {
     return fetch(url).then((res) => res.json());
   }
 
-  static repos_destroy(inData) {
+  static repos_destroy(inData): Promise<any> {
     return new Promise((resolve) => {
       console.log('call destroy api', inData);
-      resolve();
+      resolve(inData);
     });
   }
 }
@@ -29,9 +28,17 @@ class RouteService {
   }
 }
 
+/**
+ * apiService: nx.$api
+ * eventService: nx.$event
+ * routeService: nx.$route
+ * engineType: nx.$local | nx.$session
+ */
+
 class Index extends ReactAntAbstractCurd {
-  apiService = ApiService;
-  routeService = RouteService;
+  apiService = ApiService; // nx.$api
+  routeService = RouteService; // nx.$route
+  eventService = nx.mix(this, EventMitt); // nx.$app
   resources = 'repos';
   pagination = {
     page: 'page',
@@ -57,8 +64,8 @@ class Index extends ReactAntAbstractCurd {
 
   get titleView() {
     return (
-      <span className="mr-5_ mr_">
-        <ReactAdminIcons value="date" />
+      <span className='mr-5_ mr_'>
+        <ReactAdminIcons value='date' />
         <span>列表管理</span>
       </span>
     );
@@ -66,31 +73,11 @@ class Index extends ReactAntAbstractCurd {
 
   render() {
     return (
-      <Card title={this.titleView} className="m10" extra={this.extraView}>
+      <Card title={this.titleView} className='m10' extra={this.extraView}>
         {this.table()}
       </Card>
     );
   }
 }
 
-@reduxRender('app', { prefix: 'react-spa', loadable: false })
-export default class extends ReduxAppBase {
-  static initialState(inStore) {
-    return {
-      memory: {
-        modalUser: false,
-        modalUserQuery: false
-      }
-    };
-  }
-
-  render() {
-    return (
-      <ReactDemokit
-        className="p-3 app-container"
-        url="https://github.com/afeiship/react-ant-abstract-curd">
-        <Index />
-      </ReactDemokit>
-    );
-  }
-}
+ReactDOM.render(<Index />, document.getElementById('root'));
