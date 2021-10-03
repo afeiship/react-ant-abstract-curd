@@ -305,8 +305,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     );
   }
 
-  render() {
-    throw new Error('Render method must be implement!');
+  render(): React.ReactNode {
+    // throw new Error('Render method must be implement!');
     return null;
   }
 }
