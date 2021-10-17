@@ -6,7 +6,6 @@ import ReactAdminIcons from '@jswork/react-admin-icons';
 import nx from '@jswork/next';
 import nxHashlize from '@jswork/next-hashlize';
 import deepEqual from 'deep-equal';
-import { SizeType } from 'antd/es/config-provider/SizeContext';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -33,7 +32,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   engineType = 'local';
   resources = 'users';
   rowKey = 'id';
-  size: SizeType = 'small';
+  size = 'small';
   bordered = true;
   current = { item: null, index: -1 };
   module = 'modules';
