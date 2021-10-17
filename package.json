@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@jswork/event-mitt": "^1.0.3",
     "@jswork/next": "^1.0.9",
     "@jswork/next-ant-column": "^1.0.1",
     "@jswork/next-param": "^1.0.3",
