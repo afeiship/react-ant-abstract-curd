@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Card } from 'antd';
 import ReactAdminIcons from '@jswork/react-admin-icons';
 import ReactAntAbstractCurd from '../../src/main';
+import './style.css';
 import EventMitt from '@jswork/event-mitt';
 import nx from '@jswork/next';
 import '@jswork/next-param';

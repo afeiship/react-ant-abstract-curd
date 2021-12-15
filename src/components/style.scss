@@ -1,3 +1,7 @@
 .react-ant-abstract-curd{
-  color: red;
+  .is-extra{
+    > * {
+      margin-right: 5px;
+    }
+  }
 }

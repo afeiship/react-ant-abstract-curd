@@ -51,10 +51,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   }
 
   get page() {
-    const cache = nx.get(
-      nx[`$${this.engineType}`],
-      `curd__pagination.${this.resources}.page`
-    );
+    const cache = nx.get(nx[`$${this.engineType}`], `curd__pagination.${this.resources}.page`);
     return this._page || cache || 1;
   }
 
@@ -66,10 +63,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   }
 
   get pageSize() {
-    const cache = nx.get(
-      nx[`$${this.engineType}`],
-      `curd__pagination.${this.resources}.pageSize`
-    );
+    const cache = nx.get(nx[`$${this.engineType}`], `curd__pagination.${this.resources}.pageSize`);
     return this._pageSize || cache || 10;
   }
 
@@ -109,9 +103,14 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   get extraView() {
     return (
-      <div className='is-extra'>
-        <Button size={'small'} onClick={this.add} className='mr-5_ mr_'>
-          <ReactAdminIcons value='addition' size={14} />
+      <div className="mr-5_ is-extra">
+        <Button size={'small'} onClick={this.forceRefresh} className="mr-5_ mr_">
+          <ReactAdminIcons value="refresh" size={14} />
+          <span>刷新</span>
+        </Button>
+
+        <Button size={'small'} onClick={this.add} className="mr-5_ mr_">
+          <ReactAdminIcons value="addition" size={14} />
           <span>新增</span>
         </Button>
       </div>
@@ -162,8 +161,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
    * @template
    * Set init after constructor.
    */
-  init() {
-  }
+  init() {}
 
   initCache() {
     const { page, size, total } = this.pagination;
@@ -197,12 +195,9 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   }
 
   attachEvents() {
-    this.refreshEvent = this.eventService.on(
-      `${this.resources}.${this.action}.refresh`,
-      () => {
-        this.refresh();
-      }
-    );
+    this.refreshEvent = this.eventService.on(`${this.resources}.${this.action}.refresh`, () => {
+      this.refresh();
+    });
   }
 
   detachEvents() {
@@ -230,13 +225,17 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     });
   };
 
-  refresh() {
+  refresh = () => {
     const { page, size } = this.pagination;
     this.load({
       [page]: this.state[page],
       [size]: this.pageSize
     });
-  }
+  };
+
+  forceRefresh = () => {
+    this.handleTableChange({ current: 1, pageSize: this.pageSize });
+  };
 
   load(inData, inAction?) {
     const action = inAction || this.action || 'index';
@@ -295,14 +294,12 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   empty() {
-    return <ReactEmptyState centered title='暂无数据' />;
+    return <ReactEmptyState centered title="暂无数据" />;
   }
 
   view() {
     const { data } = this.state;
-    return (
-      <Card title='列表'>{data.length ? this.table() : this.empty()}</Card>
-    );
+    return <Card title="列表">{data.length ? this.table() : this.empty()}</Card>;
   }
 
   render(): React.ReactNode {
