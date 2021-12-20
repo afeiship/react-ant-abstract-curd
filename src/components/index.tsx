@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
-import { Table, Button, Card } from 'antd';
+import { Table, Button, Card, message } from 'antd';
 import ReactEmptyState from '@jswork/react-empty-state';
 import ReactAdminIcons from '@jswork/react-admin-icons';
 import nx from '@jswork/next';
@@ -103,14 +103,13 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   get extraView() {
     return (
-      <div className="mr-5_ is-extra">
-        <Button size={'small'} onClick={this.forceRefresh} className="mr-5_ mr_">
-          <ReactAdminIcons value="refresh" size={14} />
+      <div className='mr-5_ is-extra'>
+        <Button size={'small'} onClick={this.forceRefresh} className='mr-5_ mr_'>
+          <ReactAdminIcons value='refresh' size={14} />
           <span>刷新</span>
         </Button>
-
-        <Button size={'small'} onClick={this.add} className="mr-5_ mr_">
-          <ReactAdminIcons value="addition" size={14} />
+        <Button size={'small'} onClick={this.add} className='mr-5_ mr_'>
+          <ReactAdminIcons value='addition' size={14} />
           <span>新增</span>
         </Button>
       </div>
@@ -161,7 +160,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
    * @template
    * Set init after constructor.
    */
-  init() {}
+  init() {
+  }
 
   initCache() {
     const { page, size, total } = this.pagination;
@@ -223,6 +223,11 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     this.apiService[`${this.resources}_destroy`](data).then(() => {
       this.refresh();
     });
+  };
+
+  update = (inItem) => {
+    const data = { id: this.id, ...inItem };
+    this.apiService.$api[`${this.resources}_destroy`](data).then(() => message.success('操作成功'));
   };
 
   refresh = () => {
@@ -294,12 +299,12 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   empty() {
-    return <ReactEmptyState centered title="暂无数据" />;
+    return <ReactEmptyState centered title='暂无数据' />;
   }
 
   view() {
     const { data } = this.state;
-    return <Card title="列表">{data.length ? this.table() : this.empty()}</Card>;
+    return <Card title='列表'>{data.length ? this.table() : this.empty()}</Card>;
   }
 
   render(): React.ReactNode {
