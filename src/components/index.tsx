@@ -220,14 +220,16 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   del = () => {
     const data = nx.mix(null, this.current.item, this.options);
-    this.apiService[`${this.resources}_destroy`](data).then(() => {
-      this.refresh();
-    });
+    this.apiService[`${this.resources}_destroy`](data).then(() => this.refresh());
   };
 
+  /**
+   * Sub class will call this method.
+   * @param inItem
+   */
   update = (inItem) => {
     const data = { id: this.id, ...inItem };
-    this.apiService.$api[`${this.resources}_destroy`](data).then(() => message.success('操作成功'));
+    this.apiService[`${this.resources}_update`](data).then(() => message.success('操作成功'));
   };
 
   refresh = () => {
