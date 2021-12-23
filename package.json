@@ -1,7 +1,6 @@
 {
   "name": "@jswork/react-ant-abstract-curd",
-  "boilerplate": "react-ant-abstract-curd",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "Antd abstract curd.",
   "license": "MIT",
   "main": "dist/index.js",
@@ -81,6 +80,7 @@
   "dependencies": {
     "@jswork/filter-react-props": "^1.0.2",
     "@jswork/next-hashlize": "^1.0.0",
+    "@jswork/next-url-operator": "^1.0.5",
     "@jswork/noop": "^1.0.0",
     "@jswork/react-admin-icons": "^1.0.0",
     "@jswork/react-ant-confirm": "^1.0.0",

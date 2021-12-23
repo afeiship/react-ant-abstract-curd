@@ -5,6 +5,7 @@ import ReactEmptyState from '@jswork/react-empty-state';
 import ReactAdminIcons from '@jswork/react-admin-icons';
 import nx from '@jswork/next';
 import nxHashlize from '@jswork/next-hashlize';
+import NxUrlOperator from '@jswork/next-url-operator';
 import deepEqual from 'deep-equal';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
@@ -26,10 +27,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   protected eventService;
   private lastQs;
   private refreshEvent;
-  private _pageSize;
-  private _page;
+  private urlOperator = new NxUrlOperator({ type: 'hash' });
 
-  engineType = 'local';
   resources = 'users';
   rowKey = 'id';
   size = 'small';
@@ -51,27 +50,21 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   }
 
   get page() {
-    const cache = nx.get(nx[`$${this.engineType}`], `curd__pagination.${this.resources}.page`);
-    return this._page || cache || 1;
+    const { page } = this.qs;
+    return page || 1;
   }
 
   set page(inValue) {
-    this._page = inValue;
-    nx[`$${this.engineType}`] = {
-      [`curd__pagination.${this.resources}.page`]: inValue
-    };
+    location.href = this.urlOperator.update({ page: inValue });
   }
 
   get pageSize() {
-    const cache = nx.get(nx[`$${this.engineType}`], `curd__pagination.${this.resources}.pageSize`);
-    return this._pageSize || cache || 10;
+    const { size } = this.qs;
+    return size || 10;
   }
 
   set pageSize(inValue) {
-    this._pageSize = inValue;
-    nx[`$${this.engineType}`] = {
-      [`curd__pagination.${this.resources}.pageSize`]: inValue
-    };
+    location.href = this.urlOperator.update({ size: inValue });
   }
 
   get id() {
@@ -103,13 +96,13 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   get extraView() {
     return (
-      <div className='mr-5_ is-extra'>
-        <Button size={'small'} onClick={this.forceRefresh} className='mr-5_ mr_'>
-          <ReactAdminIcons value='refresh' size={14} />
+      <div className="mr-5_ is-extra">
+        <Button size={'small'} onClick={this.forceRefresh} className="mr-5_ mr_">
+          <ReactAdminIcons value="refresh" size={14} />
           <span>刷新</span>
         </Button>
-        <Button size={'small'} onClick={this.add} className='mr-5_ mr_'>
-          <ReactAdminIcons value='addition' size={14} />
+        <Button size={'small'} onClick={this.add} className="mr-5_ mr_">
+          <ReactAdminIcons value="addition" size={14} />
           <span>新增</span>
         </Button>
       </div>
@@ -160,8 +153,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
    * @template
    * Set init after constructor.
    */
-  init() {
-  }
+  init() {}
 
   initCache() {
     const { page, size, total } = this.pagination;
@@ -279,8 +271,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
         pagination={{
           showSizeChanger: true,
           total: total,
-          pageSize: this.state[size],
-          current: this.state[page]
+          pageSize: parseInt(this.state[size]),
+          current: parseInt(this.state[page])
         }}
         {...props}
       />
@@ -301,12 +293,12 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   empty() {
-    return <ReactEmptyState centered title='暂无数据' />;
+    return <ReactEmptyState centered title="暂无数据" />;
   }
 
   view() {
     const { data } = this.state;
-    return <Card title='列表'>{data.length ? this.table() : this.empty()}</Card>;
+    return <Card title="列表">{data.length ? this.table() : this.empty()}</Card>;
   }
 
   render(): React.ReactNode {
