@@ -1,5 +1,8 @@
-.react-ant-abstract-curd{
-  .is-extra{
+.react-ant-abstract-curd {
+  .is-extra {
+    display: flex;
+    align-items: center;
+
     > * {
       margin-right: 5px;
     }

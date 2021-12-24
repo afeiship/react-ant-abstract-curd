@@ -6,6 +6,7 @@ import ReactAdminIcons from '@jswork/react-admin-icons';
 import nx from '@jswork/next';
 import nxHashlize from '@jswork/next-hashlize';
 import NxUrlOperator from '@jswork/next-url-operator';
+import ReactAntInputSearch from '@jswork/react-ant-input-search';
 import deepEqual from 'deep-equal';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
@@ -96,13 +97,17 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   get extraView() {
     return (
-      <div className="mr-5_ is-extra">
-        <Button size={'small'} onClick={this.forceRefresh} className="mr-5_ mr_">
-          <ReactAdminIcons value="refresh" size={14} />
+      <div className='mr-5_ is-extra'>
+        <ReactAntInputSearch placeholder={`按title搜索${this.resources}`}
+                             allowClear
+                             size='small'
+                             enterButton onSearch={this.handleQuery} />
+        <Button size={'small'} onClick={this.forceRefresh} className='mr-5_ mr_'>
+          <ReactAdminIcons value='refresh' size={14} />
           <span>刷新</span>
         </Button>
-        <Button size={'small'} onClick={this.add} className="mr-5_ mr_">
-          <ReactAdminIcons value="addition" size={14} />
+        <Button size={'small'} onClick={this.add} className='mr-5_ mr_'>
+          <ReactAdminIcons value='addition' size={14} />
           <span>新增</span>
         </Button>
       </div>
@@ -153,7 +158,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
    * @template
    * Set init after constructor.
    */
-  init() {}
+  init() {
+  }
 
   initCache() {
     const { page, size, total } = this.pagination;
@@ -233,6 +239,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   forceRefresh = () => {
+    location.href = this.urlOperator.update({ keywords: '' });
     this.handleTableChange({ current: 1, pageSize: this.pageSize });
   };
 
@@ -279,6 +286,11 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     );
   }
 
+  handleQuery = inEvent => {
+    const { value } = inEvent.target;
+    location.href = this.urlOperator.update({ keywords: value });
+  };
+
   handleTableChange = (inPagination) => {
     const { current, pageSize } = inPagination;
     const { page, size } = this.pagination;
@@ -293,12 +305,12 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   empty() {
-    return <ReactEmptyState centered title="暂无数据" />;
+    return <ReactEmptyState centered title='暂无数据' />;
   }
 
   view() {
     const { data } = this.state;
-    return <Card title="列表">{data.length ? this.table() : this.empty()}</Card>;
+    return <Card title='列表'>{data.length ? this.table() : this.empty()}</Card>;
   }
 
   render(): React.ReactNode {

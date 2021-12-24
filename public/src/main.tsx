@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Card } from 'antd';
 import ReactAdminIcons from '@jswork/react-admin-icons';
 import ReactAntAbstractCurd from '../../src/main';
+import '../../src/components/style.scss';
 import './style.css';
 import EventMitt from '@jswork/event-mitt';
 import nx from '@jswork/next';
@@ -74,7 +75,7 @@ class Index extends ReactAntAbstractCurd {
 
   render() {
     return (
-      <Card title={this.titleView} className='m10' extra={this.extraView}>
+      <Card title={this.titleView} className='m10 react-ant-abstract-curd' extra={this.extraView}>
         {this.table()}
       </Card>
     );

@@ -84,6 +84,7 @@
     "@jswork/noop": "^1.0.0",
     "@jswork/react-admin-icons": "^1.0.0",
     "@jswork/react-ant-confirm": "^1.0.0",
+    "@jswork/react-ant-input-search": "^1.0.3",
     "@jswork/react-empty-state": "^1.0.3",
     "classnames": "^2.2.6",
     "deep-equal": "^2.0.5"
