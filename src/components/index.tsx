@@ -50,6 +50,15 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     return {};
   }
 
+  get keywords() {
+    const { keywords } = this.qs;
+    return keywords || '';
+  }
+
+  set keywords(inValue) {
+    location.href = this.urlOperator.update({ keywords: inValue });
+  }
+
   get page() {
     const { page } = this.qs;
     return page || 1;
@@ -101,6 +110,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
         <ReactAntInputSearch placeholder={`按title搜索${this.resources}`}
                              allowClear
                              size='small'
+                             defaultValue={this.keywords}
                              enterButton onSearch={this.handleQuery} />
         <Button size={'small'} onClick={this.forceRefresh} className='mr-5_ mr_'>
           <ReactAdminIcons value='refresh' size={14} />
@@ -239,7 +249,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   forceRefresh = () => {
-    location.href = this.urlOperator.update({ keywords: '' });
+    this.keywords = '';
     this.handleTableChange({ current: 1, pageSize: this.pageSize });
   };
 
@@ -288,7 +298,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   handleQuery = inEvent => {
     const { value } = inEvent.target;
-    location.href = this.urlOperator.update({ keywords: value });
+    this.keywords = value;
   };
 
   handleTableChange = (inPagination) => {
