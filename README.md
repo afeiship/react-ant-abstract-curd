@@ -29,10 +29,14 @@ npm install -S @jswork/react-ant-abstract-curd
   import { Card } from 'antd';
   import ReactAdminIcons from '@jswork/react-admin-icons';
   import ReactAntAbstractCurd from '@jswork/react-ant-abstract-curd';
+  import '../../src/components/style.scss';
+  import './style.css';
   import EventMitt from '@jswork/event-mitt';
   import nx from '@jswork/next';
   import '@jswork/next-param';
   import '@jswork/next-ant-column';
+
+  // http://localhost:3000/#/?page=1&size=10
 
   class ApiService {
     static repos_index(inData) {
@@ -66,6 +70,7 @@ npm install -S @jswork/react-ant-abstract-curd
     routeService = RouteService; // nx.$route
     eventService = nx.mix(this, EventMitt); // nx.$app
     resources = 'repos';
+    searchable = true;
     pagination = {
       page: 'page',
       size: 'per_page',
@@ -99,7 +104,7 @@ npm install -S @jswork/react-ant-abstract-curd
 
     render() {
       return (
-        <Card title={this.titleView} className='m10' extra={this.extraView}>
+        <Card title={this.titleView} className='m10 react-ant-abstract-curd' extra={this.extraView}>
           {this.table()}
         </Card>
       );

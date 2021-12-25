@@ -111,6 +111,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
       <div className='mr-5_ is-extra'>
         {this.searchable && <ReactAntInputSearch placeholder={`按title搜索${this.resources}`}
                                                  allowClear
+                                                 autoFocus
                                                  size='small'
                                                  defaultValue={this.keywords}
                                                  enterButton onSearch={this.handleQuery} />}
