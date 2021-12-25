@@ -10,6 +10,8 @@ import nx from '@jswork/next';
 import '@jswork/next-param';
 import '@jswork/next-ant-column';
 
+// http://localhost:3000/#/?page=1&size=10
+
 class ApiService {
   static repos_index(inData) {
     var url = nx.param(inData, 'https://jsonplaceholder.typicode.com/posts');
@@ -42,6 +44,7 @@ class Index extends ReactAntAbstractCurd {
   routeService = RouteService; // nx.$route
   eventService = nx.mix(this, EventMitt); // nx.$app
   resources = 'repos';
+  searchable = true;
   pagination = {
     page: 'page',
     size: 'per_page',

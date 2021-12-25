@@ -8,6 +8,7 @@ import nxHashlize from '@jswork/next-hashlize';
 import NxUrlOperator from '@jswork/next-url-operator';
 import ReactAntInputSearch from '@jswork/react-ant-input-search';
 import deepEqual from 'deep-equal';
+import debounce from 'debounce';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -254,7 +255,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     this.handleTableChange({ current: 1, pageSize: this.pageSize });
   };
 
-  load(inData, inAction?) {
+  // todo: 一些地方有不合理的调用，先用此方法，后续建议优化
+  load = debounce((inData, inAction?) => {
     const action = inAction || this.action || 'index';
     const { size } = this.pagination;
     const data = nx.mix({ [size]: this.pageSize }, inData, this.options);
@@ -263,7 +265,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
       const { rows, total } = this.setResponse(response);
       this.setState({ data: rows, total, loading: false });
     });
-  }
+  });
 
   table(inProps?) {
     const props = inProps || {};
@@ -300,6 +302,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   handleQuery = inEvent => {
     const { value } = inEvent.target;
     this.keywords = value;
+    this.handleTableChange({ current: 1, pageSize: this.pageSize });
   };
 
   handleTableChange = (inPagination) => {

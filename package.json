@@ -1,6 +1,6 @@
 {
   "name": "@jswork/react-ant-abstract-curd",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Antd abstract curd.",
   "license": "MIT",
   "main": "dist/index.js",
@@ -87,6 +87,7 @@
     "@jswork/react-ant-input-search": "^1.0.3",
     "@jswork/react-empty-state": "^1.0.3",
     "classnames": "^2.2.6",
+    "debounce": "^1.2.1",
     "deep-equal": "^2.0.5"
   },
   "publishConfig": {
