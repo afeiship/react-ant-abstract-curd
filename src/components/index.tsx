@@ -37,6 +37,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   current = { item: null, index: -1 };
   module = 'modules';
   action = 'index';
+  searchable = false;
   pagination = {
     // current page number
     page: 'page',
@@ -107,11 +108,11 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   get extraView() {
     return (
       <div className='mr-5_ is-extra'>
-        <ReactAntInputSearch placeholder={`按title搜索${this.resources}`}
-                             allowClear
-                             size='small'
-                             defaultValue={this.keywords}
-                             enterButton onSearch={this.handleQuery} />
+        {this.searchable && <ReactAntInputSearch placeholder={`按title搜索${this.resources}`}
+                                                 allowClear
+                                                 size='small'
+                                                 defaultValue={this.keywords}
+                                                 enterButton onSearch={this.handleQuery} />}
         <Button size={'small'} onClick={this.forceRefresh} className='mr-5_ mr_'>
           <ReactAdminIcons value='refresh' size={14} />
           <span>刷新</span>
