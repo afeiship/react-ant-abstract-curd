@@ -58,7 +58,9 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   }
 
   set keywords(inValue) {
-    location.href = this.urlOperator.update({ keywords: inValue });
+    const target = { keywords: inValue };
+    location.href = this.urlOperator.update(target);
+    this.setState(target);
   }
 
   get page() {
@@ -113,8 +115,10 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
                                                  allowClear
                                                  autoFocus
                                                  size='small'
-                                                 defaultValue={this.keywords}
-                                                 enterButton onSearch={this.handleQuery} />}
+                                                 value={this.state.keywords}
+                                                 enterButton
+                                                 onChange={e => this.setState({ keywords: e.target.value })}
+                                                 onSearch={this.handleQuery} />}
         <Button size={'small'} onClick={this.forceRefresh} className='mr-5_ mr_'>
           <ReactAdminIcons value='refresh' size={14} />
           <span>刷新</span>
@@ -145,6 +149,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     this.state = nx.mix(null, this.initialState(), {
       loading: false,
       columns: this.columns,
+      keywords: this.keywords,
       data: [],
       [total]: 0
     });
