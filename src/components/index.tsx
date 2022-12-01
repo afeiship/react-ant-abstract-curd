@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
-import { Table, Button, Card, message } from 'antd';
+import { Table, Button, Card, message, Space } from 'antd';
+import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 import ReactEmptyState from '@jswork/react-empty-state';
-import ReactAdminIcons from '@jswork/react-admin-icons';
-import nx from '@jswork/next';
-import nxHashlize from '@jswork/next-hashlize';
-import NxUrlOperator from '@jswork/next-url-operator';
 import ReactAntInputSearch from '@jswork/react-ant-input-search';
 import deepEqual from 'deep-equal';
 import debounce from 'debounce';
+
+// next packages
+import '@jswork/next';
+import '@jswork/next-qs';
+import '@jswork/next-url-operator';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -29,7 +31,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   protected eventService;
   private lastQs;
   private refreshEvent;
-  private urlOperator = new NxUrlOperator({ type: 'hash' });
+  private urlOperator = new nx.UrlOperator({ type: 'hash' });
 
   resources = 'users';
   rowKey = 'id';
@@ -95,10 +97,10 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
       width: 90,
       render: () => {
         return (
-          <span className={'mr-5_ mr_ is-actions'}>
+          <Space>
             <a onClick={this.edit}>编辑</a>
             <ReactAntConfirm onClick={this.del}>删除</ReactAntConfirm>
-          </span>
+          </Space>
         );
       }
     };
@@ -110,7 +112,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   get extraView() {
     return (
-      <div className='mr-5_ is-extra'>
+      <Space>
         {this.searchable && <ReactAntInputSearch placeholder={`按title搜索${this.resources}`}
                                                  allowClear
                                                  autoFocus
@@ -119,15 +121,15 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
                                                  enterButton
                                                  onChange={e => this.setState({ keywords: e.target.value })}
                                                  onSearch={this.handleQuery} />}
-        <Button size={'small'} onClick={this.forceRefresh} className='mr-5_ mr_'>
-          <ReactAdminIcons value='refresh' size={14} />
+        <Button size={'small'} onClick={this.forceRefresh}>
+          <PlusOutlined />
           <span>刷新</span>
         </Button>
-        <Button size={'small'} onClick={this.add} className='mr-5_ mr_'>
-          <ReactAdminIcons value='addition' size={14} />
+        <Button size={'small'} onClick={this.add}>
+          <ReloadOutlined />
           <span>新增</span>
         </Button>
-      </div>
+      </Space>
     );
   }
 
@@ -139,7 +141,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     const pathname = location.hash.slice(1);
     if (!pathname) return {};
     const [_, search] = pathname.split('?');
-    return nxHashlize(search);
+    return nx.qs(search);
   }
 
   constructor(inProps) {
