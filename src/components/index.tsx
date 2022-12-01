@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
-import { Table, Button, Card, message, Space } from 'antd';
+import { Table, Button, message, Space } from 'antd';
 import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 import ReactEmptyState from '@jswork/react-empty-state';
 import ReactAntInputSearch from '@jswork/react-ant-input-search';
@@ -113,14 +113,18 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   get extraView() {
     return (
       <Space>
-        {this.searchable && <ReactAntInputSearch placeholder={`按title搜索${this.resources}`}
-                                                 allowClear
-                                                 autoFocus
-                                                 size='small'
-                                                 value={this.state.keywords}
-                                                 enterButton
-                                                 onChange={e => this.setState({ keywords: e.target.value })}
-                                                 onSearch={this.handleQuery} />}
+        {this.searchable && (
+          <ReactAntInputSearch
+            placeholder={`按title搜索${this.resources}`}
+            allowClear
+            autoFocus
+            size="small"
+            value={this.state.keywords}
+            enterButton
+            onChange={(e) => this.setState({ keywords: e.target.value })}
+            onSearch={this.handleQuery}
+          />
+        )}
         <Button size={'small'} onClick={this.forceRefresh}>
           <ReloadOutlined />
           <span>刷新</span>
@@ -178,8 +182,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
    * @template
    * Set init after constructor.
    */
-  init() {
-  }
+  init() {}
 
   initCache() {
     const { page, size, total } = this.pagination;
@@ -307,7 +310,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     );
   }
 
-  handleQuery = inEvent => {
+  handleQuery = (inEvent) => {
     const { value } = inEvent.target;
     this.keywords = value;
     this.handleTableChange({ current: 1, pageSize: this.pageSize });
@@ -327,12 +330,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   empty() {
-    return <ReactEmptyState centered title='暂无数据' />;
-  }
-
-  view() {
-    const { data } = this.state;
-    return <Card title='列表'>{data.length ? this.table() : this.empty()}</Card>;
+    return <ReactEmptyState centered title="暂无数据" />;
   }
 
   render(): React.ReactNode {
