@@ -78,7 +78,6 @@
     "vite-plugin-pwa": "^0.7.3"
   },
   "dependencies": {
-    "@jswork/filter-react-props": "^1.0.2",
     "@jswork/next-qs": "^1.0.5",
     "@jswork/next-url-operator": "^1.0.6",
     "@jswork/noop": "^1.0.0",
