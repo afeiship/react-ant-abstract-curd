@@ -242,7 +242,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   /**
-   * Sub class will call this method.
+   * SubClass will call this method.
    * @param inItem
    */
   update = (inItem) => {
