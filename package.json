@@ -1,6 +1,6 @@
 {
   "name": "@jswork/react-ant-abstract-curd",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Antd abstract curd.",
   "license": "MIT",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "vite",
     "clean": "rimraf dist",
-    "predocs": "node build/markdown.js",
+    "docs": "node build/markdown.js",
     "build": "npm run clean && rollup -c",
     "docs:serve": "vite preview",
     "test": "jest",

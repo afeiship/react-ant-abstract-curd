@@ -3,6 +3,9 @@
     "requireCleanWorkingDir": false
   },
   "hooks": {
+    "after:init": [
+      "npm run docs"
+    ],
     "after:bump": [
       "npm run build"
     ]
