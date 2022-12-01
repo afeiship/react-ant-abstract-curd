@@ -122,11 +122,11 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
                                                  onChange={e => this.setState({ keywords: e.target.value })}
                                                  onSearch={this.handleQuery} />}
         <Button size={'small'} onClick={this.forceRefresh}>
-          <PlusOutlined />
+          <ReloadOutlined />
           <span>刷新</span>
         </Button>
         <Button size={'small'} onClick={this.add}>
-          <ReloadOutlined />
+          <PlusOutlined />
           <span>新增</span>
         </Button>
       </Space>
