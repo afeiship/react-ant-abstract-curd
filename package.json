@@ -14,7 +14,6 @@
     "clean": "rimraf dist",
     "predocs": "node build/markdown.js",
     "build": "npm run clean && rollup -c",
-    "docs": "tsc && vite build",
     "docs:serve": "vite preview",
     "test": "jest",
     "pages": "github-cli -p",

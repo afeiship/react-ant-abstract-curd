@@ -26,8 +26,8 @@ npm install -S @jswork/react-ant-abstract-curd
   ```js
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
-  import { Card } from 'antd';
-  import ReactAdminIcons from '@jswork/react-admin-icons';
+  import { Card, Space } from 'antd';
+  import { UnorderedListOutlined } from '@ant-design/icons';
   import ReactAntAbstractCurd from '@jswork/react-ant-abstract-curd';
   import '../../src/components/style.scss';
   import './style.css';
@@ -95,16 +95,16 @@ npm install -S @jswork/react-ant-abstract-curd
 
     get titleView() {
       return (
-        <span className='mr-5_ mr_'>
-          <ReactAdminIcons value='date' />
+        <Space>
+          <UnorderedListOutlined />
           <span>列表管理</span>
-        </span>
+        </Space>
       );
     }
 
     render() {
       return (
-        <Card title={this.titleView} className='m10 react-ant-abstract-curd' extra={this.extraView}>
+        <Card title={this.titleView} className="m10 react-ant-abstract-curd" extra={this.extraView}>
           {this.table()}
         </Card>
       );
