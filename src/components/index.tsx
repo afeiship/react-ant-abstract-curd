@@ -241,7 +241,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   routerPrefix() {
     const module = nx.kebabCase(this.module);
     const resources = nx.kebabCase(this.resources);
-    return `/${module}/${resources}/`;
+    return `${module}/${resources}`;
   }
 
   route = (inModule, inAction?: boolean) => {
