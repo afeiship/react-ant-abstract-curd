@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
-import { Table, Button, message, Space } from 'antd';
-import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Table, Button, message, Space, Tag, Card } from 'antd';
+import { PlusOutlined, ReloadOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import ReactEmptyState from '@jswork/react-empty-state';
 import ReactAntInputSearch from '@jswork/react-ant-input-search';
 import deepEqual from 'deep-equal';
@@ -10,6 +10,7 @@ import debounce from 'debounce';
 // next packages
 import '@jswork/next';
 import '@jswork/next-qs';
+import '@jswork/next-get2get';
 import '@jswork/next-url-operator';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
@@ -110,6 +111,16 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     return this.actions ? this.fields.concat(this.actions) : this.fields;
   }
 
+  get titleView() {
+    return (
+      <Space>
+        <UnorderedListOutlined />
+        <span>列表管理</span>
+        <Tag>{this.resources}</Tag>
+      </Space>
+    );
+  }
+
   get extraView() {
     return (
       <Space>
@@ -118,7 +129,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
             placeholder={`按title搜索${this.resources}`}
             allowClear
             autoFocus
-            size="small"
+            size='small'
             value={this.state.keywords}
             enterButton
             onChange={(e) => this.setState({ keywords: e.target.value })}
@@ -138,7 +149,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   }
 
   get params() {
-    return nx.get(this.props, 'match.params');
+    return nx.get2get(this.props, ['match.params', 'params']);
   }
 
   get qs() {
@@ -174,7 +185,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
    * @template
    * Set wrap response.
    */
-  setResponse(inResponse) {
+  transformResponse(inResponse) {
     return inResponse;
   }
 
@@ -182,7 +193,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
    * @template
    * Set init after constructor.
    */
-  init() {}
+  init() {
+  }
 
   initCache() {
     const { page, size, total } = this.pagination;
@@ -273,7 +285,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     const data = nx.mix({ [size]: this.pageSize }, inData, this.options);
     this.setState({ loading: true });
     this.apiService[`${this.resources}_${action}`](data).then((response) => {
-      const { rows, total } = this.setResponse(response);
+      const { rows, total } = this.transformResponse(response);
       this.setState({ data: rows, total, loading: false });
     });
   });
@@ -330,11 +342,17 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
   };
 
   empty() {
-    return <ReactEmptyState centered title="暂无数据" />;
+    return <ReactEmptyState centered title='暂无数据' />;
   }
 
-  render(): React.ReactNode {
-    // throw new Error('Render method must be implement!');
-    return null;
+  render() {
+    return (
+      <Card
+        title={this.titleView}
+        extra={this.extraView}
+        className='react-ant-abstract-curd'>
+        {this.table()}
+      </Card>
+    );
   }
 }

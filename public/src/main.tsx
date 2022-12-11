@@ -1,7 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Card, Space } from 'antd';
-import { UnorderedListOutlined } from '@ant-design/icons';
 import ReactAntAbstractCurd from '../../src/main';
 import '../../src/components/style.scss';
 import './style.css';
@@ -60,28 +58,11 @@ class Index extends ReactAntAbstractCurd {
     ];
   }
 
-  setResponse(res) {
+  transformResponse(res) {
     return {
       rows: res,
       total: 100
     };
-  }
-
-  get titleView() {
-    return (
-      <Space>
-        <UnorderedListOutlined />
-        <span>列表管理</span>
-      </Space>
-    );
-  }
-
-  render() {
-    return (
-      <Card title={this.titleView} className="m10 react-ant-abstract-curd" extra={this.extraView}>
-        {this.table()}
-      </Card>
-    );
   }
 }
 
