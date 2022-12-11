@@ -350,7 +350,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
       <Card
         title={this.titleView}
         extra={this.extraView}
-        className='react-ant-abstract-curd'>
+        className={CLASS_NAME}>
         {this.table()}
       </Card>
     );
