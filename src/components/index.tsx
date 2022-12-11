@@ -12,6 +12,7 @@ import '@jswork/next';
 import '@jswork/next-qs';
 import '@jswork/next-get2get';
 import '@jswork/next-url-operator';
+import '@jswork/next-kebab-case';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
@@ -237,18 +238,25 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     this.refreshEvent && this.refreshEvent.destroy();
   }
 
-  route = (inModule, inAction) => {
-    const url = `/${this.module}/${this.resources}/${inModule}`;
+  routerPrefix() {
+    const module = nx.kebabCase(this.module);
+    const resources = nx.kebabCase(this.resources);
+    return `/${module}/${resources}/`;
+  }
+
+  route = (inModule, inAction?: boolean) => {
+    const prefix = this.routerPrefix();
+    const url = `/${prefix}/${inModule}`;
     const action = inAction ? 'replace' : 'push';
     this.routeService[action](url);
   };
 
   add = () => {
-    this.routeService.push(`/${this.module}/${this.resources}/add`);
+    this.route('add');
   };
 
   edit = () => {
-    this.routeService.push(`/${this.module}/${this.resources}/edit/${this.id}`);
+    this.route(`edit/${this.id}`);
   };
 
   del = () => {

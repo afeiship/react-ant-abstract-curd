@@ -76,6 +76,7 @@
   },
   "dependencies": {
     "@jswork/next-get2get": "^1.0.1",
+    "@jswork/next-kebab-case": "^1.0.2",
     "@jswork/next-qs": "^1.0.5",
     "@jswork/next-url-operator": "^1.0.6",
     "@jswork/noop": "^1.0.0",
