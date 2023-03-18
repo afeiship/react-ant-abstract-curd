@@ -25,7 +25,8 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "importHelpers": true
   },
   "include": [
     "src"
