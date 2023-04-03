@@ -193,7 +193,7 @@ export class ReactAntCurdTable extends Abstract {
   load = debounce((inData, inAction?) => {
     const action = inAction || this.action || 'index';
     const { size } = this.pagination;
-    const data = nx.mix({ [size]: this.pageSize }, inData);
+    const data = nx.mix({ [size]: this.pageSize }, this.options, inData);
     this.setState({ loading: true });
     this.apiService[`${this.resources}_${action}`](data).then((response) => {
       const { rows, total } = this.transformResponse(response);
