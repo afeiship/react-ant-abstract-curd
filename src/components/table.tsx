@@ -110,7 +110,7 @@ export class ReactAntCurdTable extends Abstract {
             placeholder={`按title搜索${this.resources}`}
             allowClear
             autoFocus
-            size='small'
+            size="small"
             value={this.state.keywords}
             enterButton
             onChange={(e) => this.setState({ keywords: e.target.value })}
@@ -151,22 +151,6 @@ export class ReactAntCurdTable extends Abstract {
       data: [],
       [total]: 0
     });
-    this.init();
-  }
-
-  /**
-   * @template
-   * Set wrap response.
-   */
-  transformResponse(inResponse) {
-    return inResponse;
-  }
-
-  /**
-   * @template
-   * Set init after constructor.
-   */
-  init() {
   }
 
   initCache() {
@@ -179,13 +163,10 @@ export class ReactAntCurdTable extends Abstract {
   }
 
   componentDidMount() {
+    super.componentDidMount();
     const { page } = this.pagination;
-    this.attachEvents();
     this.initCache();
     this.load({ [page]: this.state[page] });
-    setTimeout(() => {
-      nx.set(this.routeService, 'current', this.props);
-    }, 0);
   }
 
   shouldComponentUpdate() {
@@ -194,20 +175,6 @@ export class ReactAntCurdTable extends Abstract {
       this.refresh();
     }
     return true;
-  }
-
-  componentWillUnmount() {
-    this.detachEvents();
-  }
-
-  attachEvents() {
-    this.refreshEvent = this.eventService.on(`${this.resources}.${this.action}.refresh`, () => {
-      this.refresh();
-    });
-  }
-
-  detachEvents() {
-    this.refreshEvent && this.refreshEvent.destroy();
   }
 
   refresh = () => {
@@ -249,7 +216,7 @@ export class ReactAntCurdTable extends Abstract {
         onChange={this.handleTableChange}
         rowKey={this.rowKey}
         onRow={(record, index: number) => {
-          const update = () => this.current = { index, item: record };
+          const update = () => (this.current = { index, item: record });
           return { onClick: update, onMouseEnter: update };
         }}
         pagination={{

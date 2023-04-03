@@ -139,7 +139,7 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
     this.load();
   };
 
-  load() {}
+  load = () => {};
 
   componentDidMount() {
     this.attachEvents();
