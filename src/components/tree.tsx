@@ -6,6 +6,7 @@ import Abstract from './abstract';
 
 export class ReactAntCurdTree extends Abstract {
   action = 'tree';
+  rowKey = 'value';
 
   template = ({ item, index }, cb) => {
     const { value, label } = item;
