@@ -91,7 +91,8 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
     return nx.get(this.current, `item.${this.rowKey}`);
   }
 
-  get options {
+  get options(): any {
+    return null;
   }
 
   constructor(inProps) {
@@ -123,8 +124,7 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
    * @template
    * Set init after constructor.
    */
-  init() {
-  }
+  init() {}
 
   /**
    * @template
@@ -143,8 +143,7 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
     this.load();
   };
 
-  load = () => {
-  };
+  load = () => {};
 
   componentDidMount() {
     this.attachEvents();
