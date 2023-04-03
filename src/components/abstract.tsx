@@ -120,15 +120,15 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
    * @template
    * Set init after constructor.
    */
-  init() {
-  }
+  init() {}
 
   /**
    * @template
    *  Set refresh method.
    */
-  forceRefresh() {
+  forceRefresh = () => {
     // 与 refresh 不同之处在于，重置并 refresh
+    this.load();
   };
 
   /**
@@ -139,9 +139,7 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
     this.load();
   };
 
-  load() {
-    console.log('abstract load...');
-  };
+  load() {}
 
   componentDidMount() {
     this.attachEvents();
@@ -207,11 +205,9 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
   }
 
   render() {
+    const { loading } = this.state;
     return (
-      <Card
-        title={this.titleView}
-        extra={this.extraView}
-        className={CLASS_NAME}>
+      <Card loading={loading} title={this.titleView} extra={this.extraView} className={CLASS_NAME}>
         {this.view()}
       </Card>
     );
