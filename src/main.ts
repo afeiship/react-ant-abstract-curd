@@ -1,3 +1,7 @@
-import Component from './components';
+import { ReactAntCurdTable } from './components/table';
+import { ReactAntCurdTree } from './components/tree';
 
-export default Component;
+export {
+  ReactAntCurdTable,
+  ReactAntCurdTree
+};

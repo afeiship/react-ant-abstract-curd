@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import ReactAntAbstractCurd from '../../src/main';
-import '../../src/components/style.scss';
+import { ReactAntCurdTree, ReactAntCurdTable } from '../../src/main';
 import './style.css';
 import EventMitt from '@jswork/event-mitt';
-import nx from '@jswork/next';
+// @ts-ignore
+import treeJson from './tree.json';
 import '@jswork/next-param';
 import '@jswork/next-ant-column';
 
@@ -14,6 +14,12 @@ class ApiService {
   static repos_index(inData) {
     var url = nx.param(inData, 'https://jsonplaceholder.typicode.com/posts');
     return fetch(url).then((res) => res.json());
+  }
+
+  static repos_tree() {
+    return new Promise((resolve) => {
+      resolve(treeJson);
+    });
   }
 
   static repos_destroy(inData): Promise<any> {
@@ -37,7 +43,7 @@ class RouteService {
  * engineType: nx.$local | nx.$session
  */
 
-class Index extends ReactAntAbstractCurd {
+class Index extends ReactAntCurdTable {
   apiService = ApiService; // nx.$api
   routeService = RouteService; // nx.$route
   eventService = nx.mix(this, EventMitt); // nx.$app
@@ -66,4 +72,14 @@ class Index extends ReactAntAbstractCurd {
   }
 }
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+class TreeIndex extends ReactAntCurdTree {
+  apiService = ApiService; // nx.$api
+  routeService = RouteService; // nx.$route
+  eventService = nx.mix(this, EventMitt); // nx.$app
+  resources = 'repos';
+  rowKey = 'value';
+}
+
+ApiService.repos_tree();
+
+ReactDOM.render(<TreeIndex />, document.getElementById('root'));

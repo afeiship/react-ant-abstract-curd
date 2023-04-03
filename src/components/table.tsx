@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactAntConfirm from '@jswork/react-ant-confirm';
-import { Table, Button, message, Space, Tag, Card } from 'antd';
+import { Table, Button, Space, Tag } from 'antd';
 import { PlusOutlined, ReloadOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import ReactEmptyState from '@jswork/react-empty-state';
 import ReactAntInputSearch from '@jswork/react-ant-input-search';
 import deepEqual from 'deep-equal';
 import debounce from 'debounce';
+import Abstract from './abstract';
 
 // next packages
 import '@jswork/next';
@@ -16,31 +16,15 @@ import '@jswork/next-kebab-case';
 
 const CLASS_NAME = 'react-ant-abstract-curd';
 
-export type ReactAntAbstractCurdProps = {
-  /**
-   * The extended className for component.
-   */
-  className?: string;
-};
-
-export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurdProps, any> {
+export class ReactAntCurdTable extends Abstract {
   static displayName = CLASS_NAME;
   static version = '__VERSION__';
 
   static defaultProps = {};
-  protected apiService;
-  protected routeService;
-  protected eventService;
   private lastQs;
-  private refreshEvent;
   private urlOperator = new nx.UrlOperator({ type: 'hash' });
 
-  resources = 'users';
-  rowKey = 'id';
-  size = 'small';
   bordered = true;
-  current = { item: null, index: -1 };
-  module = 'modules';
   action = 'index';
   searchable = false;
   pagination = {
@@ -51,10 +35,6 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     // total count
     total: 'total'
   };
-
-  get options() {
-    return {};
-  }
 
   get keywords() {
     const { keywords } = this.qs;
@@ -176,14 +156,6 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
 
   /**
    * @template
-   *
-   */
-  initialState() {
-    return null;
-  }
-
-  /**
-   * @template
    * Set wrap response.
    */
   transformResponse(inResponse) {
@@ -238,41 +210,6 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     this.refreshEvent && this.refreshEvent.destroy();
   }
 
-  routerPrefix() {
-    const module = nx.kebabCase(this.module);
-    const resources = nx.kebabCase(this.resources);
-    return `${module}/${resources}`;
-  }
-
-  route = (inModule, inAction?: boolean) => {
-    const prefix = this.routerPrefix();
-    const url = `/${prefix}/${inModule}`;
-    const action = inAction ? 'replace' : 'push';
-    this.routeService[action](url);
-  };
-
-  add = () => {
-    this.route('add');
-  };
-
-  edit = () => {
-    this.route(`edit/${this.id}`);
-  };
-
-  del = () => {
-    const data = nx.mix(null, this.current.item, this.options);
-    this.apiService[`${this.resources}_destroy`](data).then(() => this.refresh());
-  };
-
-  /**
-   * SubClass will call this method.
-   * @param inItem
-   */
-  update = (inItem) => {
-    const data = { id: this.id, ...inItem };
-    this.apiService[`${this.resources}_update`](data).then(() => message.success('操作成功'));
-  };
-
   refresh = () => {
     const { page, size } = this.pagination;
     this.load({
@@ -286,11 +223,10 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     this.handleTableChange({ current: 1, pageSize: this.pageSize });
   };
 
-  // todo: 一些地方有不合理的调用，先用此方法，后续建议优化
   load = debounce((inData, inAction?) => {
     const action = inAction || this.action || 'index';
     const { size } = this.pagination;
-    const data = nx.mix({ [size]: this.pageSize }, inData, this.options);
+    const data = nx.mix({ [size]: this.pageSize }, inData);
     this.setState({ loading: true });
     this.apiService[`${this.resources}_${action}`](data).then((response) => {
       const { rows, total } = this.transformResponse(response);
@@ -298,7 +234,7 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
     });
   });
 
-  table(inProps?) {
+  view(inProps?) {
     const props = inProps || {};
     const { columns, data, total, loading } = this.state;
     const { page, size } = this.pagination;
@@ -313,11 +249,8 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
         onChange={this.handleTableChange}
         rowKey={this.rowKey}
         onRow={(record, index: number) => {
-          return {
-            onMouseEnter: () => {
-              this.current = { index, item: record };
-            }
-          };
+          const update = () => this.current = { index, item: record };
+          return { onClick: update, onMouseEnter: update };
         }}
         pagination={{
           showSizeChanger: true,
@@ -348,19 +281,4 @@ export default class ReactAntAbstractCurd extends Component<ReactAntAbstractCurd
       this.load(target);
     });
   };
-
-  empty() {
-    return <ReactEmptyState centered title='暂无数据' />;
-  }
-
-  render() {
-    return (
-      <Card
-        title={this.titleView}
-        extra={this.extraView}
-        className={CLASS_NAME}>
-        {this.table()}
-      </Card>
-    );
-  }
 }
