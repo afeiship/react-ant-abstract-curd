@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { message, Space } from 'antd';
 import { ReactAntCurdTree, ReactAntCurdTable } from '../../src/main';
 import './style.css';
 import EventMitt from '@jswork/event-mitt';
@@ -32,7 +33,7 @@ class ApiService {
 
 class RouteService {
   static push(inUrl) {
-    console.log('push to:', inUrl);
+    message.info('push to:' + inUrl);
   }
 }
 
@@ -80,6 +81,10 @@ class TreeIndex extends ReactAntCurdTree {
   rowKey = 'value';
 }
 
-ApiService.repos_tree();
-
-ReactDOM.render(<TreeIndex />, document.getElementById('root'));
+ReactDOM.render(
+  <Space direction="vertical">
+    <Index />
+    <TreeIndex />
+  </Space>,
+  document.getElementById('root')
+);
