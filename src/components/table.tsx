@@ -196,7 +196,7 @@ export class ReactAntCurdTable extends Abstract {
     const data = nx.mix({ [size]: this.pageSize }, this.options, inData);
     this.setState({ loading: true });
     this.apiService[`${this.resources}_${action}`](data).then((response) => {
-      const { rows, total } = this.transformResponse(response);
+      const { rows, total } = this.dataDidLoad(response);
       this.setState({ data: rows, total, loading: false });
     });
   });

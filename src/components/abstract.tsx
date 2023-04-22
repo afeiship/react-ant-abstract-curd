@@ -116,7 +116,7 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
    * @template
    * Set wrap response.
    */
-  transformResponse(inResponse) {
+  dataDidLoad(inResponse) {
     return inResponse;
   }
 

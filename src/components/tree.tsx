@@ -34,7 +34,7 @@ export class ReactAntCurdTree extends Abstract {
     this.setState({ loading: true });
     this.apiService[`${this.resources}_${action}`]()
       .then((response) => {
-        const items = this.transformResponse(response);
+        const items = this.dataDidLoad(response);
         this.setState({ items });
       })
       .finally(() => {
