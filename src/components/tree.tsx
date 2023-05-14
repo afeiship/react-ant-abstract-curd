@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tree, Space, Popconfirm } from 'antd';
+import { Tree, Space, Popconfirm, Badge } from 'antd';
 import ReactAntTree from '@jswork/react-ant-tree';
 import Abstract from './abstract';
 
@@ -8,13 +8,19 @@ const stop = (e) => e?.stopPropagation();
 export class ReactAntCurdTree extends Abstract {
   action = 'tree';
   rowKey = 'value';
+  orderKey = 'sequence';
 
   template = ({ item, index }, cb) => {
     const { value, label } = item;
     const update = () => (this.current = { index, item });
+    const order = nx.get(item, this.orderKey);
+    const isLeaf = Boolean(!item.children);
+
     const titleView = (
       <Space onMouseEnter={update}>
-        <span>{label}</span>
+        <Badge size="small" count={order}>
+          {label}
+        </Badge>
         <a onClick={this.edit}>编辑</a>
         <Popconfirm title="确认执行这个操作？" onConfirm={this.del} onCancel={stop}>
           <a onClick={stop}>删除</a>
@@ -23,7 +29,7 @@ export class ReactAntCurdTree extends Abstract {
     );
 
     return (
-      <Tree.TreeNode key={value} title={titleView}>
+      <Tree.TreeNode key={value} isLeaf={isLeaf} title={titleView}>
         {cb()}
       </Tree.TreeNode>
     );
