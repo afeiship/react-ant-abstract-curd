@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { message, Space } from 'antd';
+import { message } from 'antd';
 import { ReactAntCurdTree, ReactAntCurdTable } from '../../src/main';
 import './style.css';
 import EventMitt from '@jswork/event-mitt';
