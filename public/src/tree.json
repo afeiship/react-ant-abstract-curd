@@ -9,15 +9,18 @@
         "children": [
           {
             "label": "0-0-0-0",
+            "sequence": 1,
             "value": "0-0-0-0"
           },
           {
             "label": "0-0-0-1",
-            "value": "0-0-0-1"
+            "value": "0-0-0-1",
+            "sequence": 2
           },
           {
             "label": "0-0-0-2",
-            "value": "0-0-0-2"
+            "value": "0-0-0-2",
+            "sequence": 10
           }
         ]
       },

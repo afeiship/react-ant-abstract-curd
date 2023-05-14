@@ -8,6 +8,16 @@ import EventMitt from '@jswork/event-mitt';
 import treeJson from './tree.json';
 import '@jswork/next-param';
 import '@jswork/next-ant-column';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  gap: 14px;
+
+  > * {
+    flex: 1;
+  }
+`;
 
 // http://localhost:3000/#/?page=1&size=10
 
@@ -82,9 +92,9 @@ class TreeIndex extends ReactAntCurdTree {
 }
 
 ReactDOM.render(
-  <Space direction="vertical">
+  <Container>
     <Index />
     <TreeIndex />
-  </Space>,
+  </Container>,
   document.getElementById('root')
 );
