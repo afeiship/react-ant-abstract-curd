@@ -13,6 +13,7 @@ public
 .editorconfig
 .prettierrc
 .prettierignore
+.ncurc.json
 
 # vscode
 .vscode
