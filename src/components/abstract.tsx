@@ -12,6 +12,8 @@ import '@jswork/next-kebab-case';
 
 const CLASS_NAME = 'react-ant-abstract';
 
+type RecordType = any | null;
+
 export type ReactAntAbstractProps = {
   /**
    * The extended className for component.
@@ -40,7 +42,7 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
     return {
       title: '操作',
       width: 90,
-      render: (text: string, record: any) => {
+      render: (text: ReactNode, record: RecordType) => {
         return (
           <Space>
             <a onClick={this.edit}>编辑</a>
