@@ -42,7 +42,7 @@ export default class ReactAntAbstract extends Component<ReactAntAbstractProps, a
     return {
       title: '操作',
       width: 90,
-      render: (text: ReactNode, record: RecordType) => {
+      render: (text: string, record: RecordType) => {
         return (
           <Space>
             <a onClick={this.edit}>编辑</a>
