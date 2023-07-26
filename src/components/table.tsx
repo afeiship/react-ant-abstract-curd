@@ -77,7 +77,7 @@ export class ReactAntCurdTable extends Abstract {
     return {
       title: '操作',
       width: 90,
-      render: () => {
+      render: (_text: string, _record: any) => {
         return (
           <Space>
             <a onClick={this.edit}>编辑</a>
