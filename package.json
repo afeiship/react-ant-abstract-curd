@@ -1,6 +1,6 @@
 {
   "name": "@jswork/react-ant-abstract-curd",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Antd abstract curd.",
   "license": "MIT",
   "main": "dist/index.js",
