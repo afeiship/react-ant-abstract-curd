@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@jswork/event-mitt": "^1.0.3",
-    "@jswork/next": "^1.1.10",
+    "@jswork/event-mitt": "^1.0.4",
+    "@jswork/next": "^1.1.11",
     "@jswork/next-ant-column": "^1.0.5",
     "@jswork/next-param": "^1.0.12",
     "@jswork/next-react-redux": "^1.0.3",
@@ -74,7 +74,7 @@
     "vite": "^2.3.4"
   },
   "dependencies": {
-    "@jswork/next-get2get": "^1.0.4",
+    "@jswork/next-get2get": "^1.0.6",
     "@jswork/next-kebab-case": "^1.0.4",
     "@jswork/next-qs": "^1.0.9",
     "@jswork/next-url-operator": "^1.0.7",
